@@ -1,0 +1,40 @@
+const Product = ({ data }) => {
+  return (
+    <tr>
+      <th scope="row">
+        <input type="checkbox" />
+      </th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
+    </tr>
+  )
+}
+
+const ProductsBody = ({ products }) => {
+  return (
+    <div className="products-body">
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">
+              <input type="checkbox" />
+            </th>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(product => (
+            <Product key={product.id} data={product} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export default ProductsBody

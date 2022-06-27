@@ -3,7 +3,7 @@
   height: 30px;
 }
 
-/* Products header */
+/* Products Header */
 .product-header {
   display: grid;
   padding-left: 1%;
@@ -19,14 +19,4 @@
 }
 .module-menu-b {
   grid-column: 1 / 4;
-}
-
-/* Products body */
-.products-body {
-  padding-top: 10px;
-}
-
-/* Product row */
-.currency:before {
-  content: '$'
 }

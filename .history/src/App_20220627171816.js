@@ -6,18 +6,10 @@ import Body from './components/Body'
 import Footer from './components/Footer'
 
 function App() {
-  const [products, setProducts] = useState([])
-
-  useEffect(() => {
-    productService
-      .getAll()
-      .then(initialProducts => setProducts(initialProducts))
-  }, [])
-
   return (
     <div>
       <Header />
-      <Body products={products} />
+      <Body />
       <Footer />
     </div>
   )

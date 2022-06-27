@@ -1,0 +1,14 @@
+/* App */
+.header {
+  height: 30px;
+}
+
+/* Products Header */
+.product-header {
+  padding-left: 3%;
+  padding-right: 3%;
+
+}
+.module-title {
+  text-transform: uppercase;
+}

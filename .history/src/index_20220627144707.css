@@ -1,0 +1,18 @@
+/* App */
+.header {
+  height: 30px;
+}
+
+/* Products Header */
+.product-header {
+  display: grid;
+
+
+}
+.module-title, .module-title h5 {
+  grid-column: 1 / 4;
+  text-transform: uppercase;
+}
+.module-buttons {
+  grid-column: 3 / 4
+}

@@ -14,10 +14,12 @@ function App() {
       .then(initialProducts => setProducts(initialProducts))
   }, [])
 
+  console.log(products)
+
   return (
     <div>
       <Header />
-      <Body products={products} />
+      <Body />
       <Footer />
     </div>
   )

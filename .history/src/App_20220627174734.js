@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <Header />
-      <Body products={products} />
+      <Body data={products} />
       <Footer />
     </div>
   )
