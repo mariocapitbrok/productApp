@@ -7,11 +7,9 @@ const ProductsHeader = () => {
         <h5>Products</h5>
       </div>
       <div className="module-menu-a">
-        <Link to="/new-product">
-          <button>
-            <i className="fa-solid fa-plus"></i> Add product
-          </button>
-        </Link>
+        <button>
+          <i className="fa-solid fa-plus"></i> Add product
+        </button>
       </div>
       <div className="module-menu-b">
         <button>

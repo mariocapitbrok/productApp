@@ -1,7 +1,7 @@
 import ProductList from './ProductList'
 
 import { useState, useEffect } from 'react'
-import productService from '../services/products'
+import productService from './services/products'
 
 const ProductsBody = () => {
   const [products, setProducts] = useState([])
