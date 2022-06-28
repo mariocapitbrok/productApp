@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate useMatch } from 'react-router-dom'
 
-const NewProduct = () => {
+const ProductForm = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState(0)
@@ -56,4 +56,4 @@ const NewProduct = () => {
   )
 }
 
-export default NewProduct
+export default ProductForm

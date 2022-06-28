@@ -1,0 +1,32 @@
+/* App */
+.header {
+  height: 30px;
+}
+
+/* Products header */
+.product-header {
+  display: grid;
+  padding-left: 1%;
+  padding-right: 1%;
+
+}
+.module-title {
+  grid-column: 1 / 1;
+  text-transform: uppercase;
+}
+.module-menu-a {
+  grid-column: 3 / 4;
+}
+.module-menu-b {
+  grid-column: 1 / 4;
+}
+
+/* Products body */
+.products-body {
+  padding-top: 10px;
+}
+
+/* Product row */
+.currency:before {
+  content: '$'
+}

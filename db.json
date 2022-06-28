@@ -2,21 +2,45 @@
   "products": [
     {
       "id": 1,
-      "name": "Unique string from 3 to 100 characters",
+      "name": "1. Unique string from 3 to 100 characters",
       "description": "Description string between 5 and 1000 characters and price must be a number between 1 and 20,000 with 2 decimal place precision.",
       "price": 5000
     },
     {
       "id": 2,
-      "name": "Unique string from 3 to 100 characters",
+      "name": "2. Unique string from 3 to 100 characters",
       "description": "Description string between 5 and 1000 characters and price must be a number between 1 and 20,000 with 2 decimal place precision.",
       "price": 5000
     },
     {
       "id": 3,
-      "name": "Unique string from 3 to 100 characters",
+      "name": "3. Unique string from 3 to 100 characters",
       "description": "Description string between 5 and 1000 characters and price must be a number between 1 and 20,000 with 2 decimal place precision.",
       "price": 5000
-    }        
+    },
+    {
+      "id": "598",
+      "name": "Producto editado",
+      "description": "ñlasdjfñlk",
+      "price": 30
+    },
+    {
+      "id": "532",
+      "name": "otro mas chingón",
+      "description": "qpoerjñlask",
+      "price": 20
+    },
+    {
+      "id": "847",
+      "name": "nuevo 3",
+      "description": "lksajdfñlk",
+      "price": 20
+    },
+    {
+      "id": "191",
+      "name": "Producto B",
+      "description": "Una descripción",
+      "price": 400
+    }
   ]
 }
