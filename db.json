@@ -41,6 +41,24 @@
       "name": "Producto B",
       "description": "Una descripción",
       "price": 400
+    },
+    {
+      "id": "728",
+      "name": "nuevo",
+      "description": "ñlskjfñalk",
+      "price": 40
+    },
+    {
+      "id": "972",
+      "name": "mas nuevo",
+      "description": "ñlaksjdf",
+      "price": 40
+    },
+    {
+      "id": "664",
+      "name": "mas mas nuevo",
+      "description": "lasdjñlsdfjasñlkj|",
+      "price": 300
     }
   ]
 }

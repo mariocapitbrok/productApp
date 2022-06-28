@@ -1,6 +1,6 @@
 import ProductRow from './ProductRow'
 
-const ProductList = ({ products, checkedState, setCheckedState }) => {
+const ProductList = ({ products, setCheckedState }) => {
   return (
     <table className="table">
       <thead>
@@ -15,12 +15,10 @@ const ProductList = ({ products, checkedState, setCheckedState }) => {
         </tr>
       </thead>
       <tbody>
-        {products.map((product, index) => (
+        {products.map(product => (
           <ProductRow
             key={product.id}
-            index={index}
             product={product}
-            checkedState={checkedState}
             setCheckedState={setCheckedState}
           />
         ))}

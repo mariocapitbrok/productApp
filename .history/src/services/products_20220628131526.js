@@ -27,20 +27,6 @@ const removeOne = id => {
   return request.then(() => true)
 }
 
-const removeMany = idArray => {
-  const request = idArray.foreach(id => {
-    axios.delete(`${baseUrl}/${id}`)
-  })
-  return request.then(() => true)
-}
-
-const productService = {
-  getAll,
-  getOne,
-  addOne,
-  updateOne,
-  removeOne,
-  removeMany,
-}
+const productService = { getAll, getOne, addOne, updateOne, removeOne }
 
 export default productService

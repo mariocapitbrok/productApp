@@ -1,27 +1,17 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const ProductRow = ({ index, product, checkedState, setCheckedState }) => {
+const ProductRow = ({ product }) => {
   const [isChecked, setIsChecked] = useState(false)
 
-  const handleOnChange = indexB => {
+  const handleOnChange = () => {
     setIsChecked(!isChecked)
-
-    const newCheckedState = checkedState.map((checkboxState, indexA) => {
-      return indexA === indexB ? !checkboxState : checkboxState
-    })
-
-    setCheckedState(newCheckedState)
   }
 
   return (
     <tr>
       <th scope="row">
-        <input
-          type="checkbox"
-          onChange={() => handleOnChange(index)}
-          checked={isChecked}
-        />
+        <input type="checkbox" onChange={handleOnChange} checked={isChecked} />
       </th>
       <td>{product.id}</td>
       <td>

@@ -12,8 +12,7 @@ const Products = () => {
   useEffect(() => {
     productService.getAll().then(products => {
       setProducts(products)
-      const newCheckedState = new Array(products.length).fill(false)
-      setCheckedState(newCheckedState)
+      setCheckedState(new Array(products.length).fill(false))
     })
   }, [])
 
@@ -21,10 +20,7 @@ const Products = () => {
 
   return (
     <div className="products">
-      <ProductsHeader
-        checkedState={checkedState}
-        setCheckedState={setCheckedState}
-      />
+      <ProductsHeader />
       <ProductsBody
         products={products}
         checkedState={checkedState}

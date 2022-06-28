@@ -1,6 +1,11 @@
+import React, { useState } from 'react'
 import ProductRow from './ProductRow'
 
-const ProductList = ({ products, checkedState, setCheckedState }) => {
+const ProductList = ({ products }) => {
+  let initialCheckedArray = new Array(products.length).fill(false)
+
+  const [checkedState, setCheckedState] = useState(initialCheckedArray)
+
   return (
     <table className="table">
       <thead>
@@ -15,14 +20,8 @@ const ProductList = ({ products, checkedState, setCheckedState }) => {
         </tr>
       </thead>
       <tbody>
-        {products.map((product, index) => (
-          <ProductRow
-            key={product.id}
-            index={index}
-            product={product}
-            checkedState={checkedState}
-            setCheckedState={setCheckedState}
-          />
+        {products.map(product => (
+          <ProductRow key={product.id} product={product} />
         ))}
       </tbody>
     </table>

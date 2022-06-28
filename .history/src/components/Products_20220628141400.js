@@ -6,25 +6,18 @@ import ProductsBody from './ProductsBody'
 import ProductsFooter from './ProductsFooter'
 
 const Products = () => {
+  let initialCheckedArray = new Array(products.length).fill(false)
+
   const [products, setProducts] = useState([])
-  const [checkedState, setCheckedState] = useState([])
+  const [checkedState, setCheckedState] = useState(initialCheckedArray)
 
   useEffect(() => {
-    productService.getAll().then(products => {
-      setProducts(products)
-      const newCheckedState = new Array(products.length).fill(false)
-      setCheckedState(newCheckedState)
-    })
+    productService.getAll().then(products => setProducts(products))
   }, [])
-
-  console.log(checkedState)
 
   return (
     <div className="products">
-      <ProductsHeader
-        checkedState={checkedState}
-        setCheckedState={setCheckedState}
-      />
+      <ProductsHeader />
       <ProductsBody
         products={products}
         checkedState={checkedState}
