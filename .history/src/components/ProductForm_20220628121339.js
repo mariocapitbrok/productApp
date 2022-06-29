@@ -53,7 +53,7 @@ const ProductForm = () => {
     }
 
     if (productId === 'new') {
-      productService.addOne(newProduct)
+      productService.create(newProduct)
     } else {
       console.log(name, description, price)
     }

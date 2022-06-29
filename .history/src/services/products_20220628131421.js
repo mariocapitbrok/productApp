@@ -12,12 +12,12 @@ const getOne = id => {
   return request.then(response => response.data)
 }
 
-const addOne = newProduct => {
+const create = newProduct => {
   const request = axios.post(baseUrl, newProduct)
   return request.then(response => response.data)
 }
 
-const updateOne = (id, newProduct) => {
+const update = (id, newProduct) => {
   const request = axios.put(`${baseUrl}/${id}`, newProduct)
   return request.then(response => response.data)
 }
@@ -26,6 +26,6 @@ const deleteOne = id => {
   const request = axios.delete(`${baseUrl}/${id}`)
 }
 
-const productService = { getAll, getOne, addOne, updateOne }
+const productService = { getAll, getOne, create, update }
 
 export default productService

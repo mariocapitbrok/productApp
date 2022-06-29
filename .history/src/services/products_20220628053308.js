@@ -7,11 +7,11 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
-const addOne = newProduct => {
+const create = newProduct => {
   const request = axios.post(baseUrl, newProduct)
   return request.then(response => response.data)
 }
 
-const productService = { getAll, addOne }
+const productService = { getAll, create }
 
 export default productService

@@ -53,7 +53,7 @@ const ProductForm = ({ setProducts }) => {
     }
 
     if (productId === 'new') {
-      productService.addOne(newProduct).then(product => {
+      productService.create(newProduct).then(product => {
         setProducts(product)
       })
     } else {

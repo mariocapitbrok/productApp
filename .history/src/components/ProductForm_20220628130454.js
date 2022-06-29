@@ -53,9 +53,9 @@ const ProductForm = () => {
     }
 
     if (productId === 'new') {
-      productService.addOne(newProduct)
+      productService.create(newProduct)
     } else {
-      productService.updateOne(newProduct)
+      productService.update(newProduct)
     }
     navigate('/products', { replace: true })
   }
