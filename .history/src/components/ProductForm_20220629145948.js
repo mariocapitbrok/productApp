@@ -106,7 +106,7 @@ const ProductForm = () => {
     navigate('/products', { replace: true })
   }
 
-  validate() // later, this has to be ordered properly.
+  validate()
   //console.log(newProduct)
 
   return (

@@ -16,9 +16,9 @@ const ProductForm = () => {
 
   const schema = Joi.object({
     id: Joi.string(),
-    name: Joi.string().min(3).max(100),
-    description: Joi.string().min(5).max(1000),
-    price: Joi.number().min(1).max(20000).precision(2),
+    name: Joi.string().min(1).max(100),
+    description: Joi.string().min(1).max(1000),
+    price: Joi.number().min(0).max(20000).precision(2),
   })
 
   const validate = () => {
@@ -42,11 +42,6 @@ const ProductForm = () => {
       setName(product.name)
       setDescription(product.description)
       setPrice(product.price)
-      setNewProduct({
-        name: product.name,
-        description: product.description,
-        price: product.price,
-      })
     })
   }, [navigate, params.id])
 
@@ -78,8 +73,8 @@ const ProductForm = () => {
   }
 
   const handleCreate = () => {
-    const product = {
-      id: String(products.length + 1),
+    let product = {
+      id: products.length + 1,
       ...newProduct,
     }
 
@@ -87,12 +82,10 @@ const ProductForm = () => {
   }
 
   const handleUpdate = () => {
-    const id = params.id
-    const updatedProducts = products.map(product =>
-      product.id === id ? { id, ...newProduct } : product
-    )
-
-    productService.update(id, newProduct).then(setProducts(updatedProducts))
+    let product = {
+      ...newProduct,
+    }
+    console.log(product)
   }
 
   const handleSubmit = event => {
@@ -100,13 +93,13 @@ const ProductForm = () => {
 
     if (params.id === 'new') {
       handleCreate()
+      navigate('/products', { replace: true })
     } else {
-      handleUpdate()
+      console.log('existing id')
     }
-    navigate('/products', { replace: true })
   }
 
-  validate() // later, this has to be ordered properly.
+  validate()
   //console.log(newProduct)
 
   return (

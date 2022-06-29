@@ -88,11 +88,16 @@ const ProductForm = () => {
 
   const handleUpdate = () => {
     const id = params.id
-    const updatedProducts = products.map(product =>
-      product.id === id ? { id, ...newProduct } : product
+    const newProducts = products.map(product =>
+      product.id === id ? newProduct : product
     )
-
-    productService.update(id, newProduct).then(setProducts(updatedProducts))
+    console.log(newProducts)
+    /* productService
+      .update(id, newProduct)
+      .then(
+        setProducts(newProducts)
+        )
+      ) */
   }
 
   const handleSubmit = event => {
@@ -103,10 +108,10 @@ const ProductForm = () => {
     } else {
       handleUpdate()
     }
-    navigate('/products', { replace: true })
+    //navigate('/products', { replace: true })
   }
 
-  validate() // later, this has to be ordered properly.
+  //validate()
   //console.log(newProduct)
 
   return (

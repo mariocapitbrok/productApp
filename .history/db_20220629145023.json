@@ -38,7 +38,7 @@
     },
     {
       "name": "dedo",
-      "description": "vientos!!!",
+      "description": "descripción D",
       "price": 324,
       "id": "7"
     },
@@ -47,12 +47,6 @@
       "name": "e",
       "description": "asdf",
       "price": 23
-    },
-    {
-      "id": "9",
-      "name": "f",
-      "description": "ese es nuevo",
-      "price": 234
     }
   ]
 }

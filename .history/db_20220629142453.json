@@ -17,42 +17,6 @@
       "name": "3. Unique string from 3 to 100 characters",
       "description": "Description string between 5 and 1000 characters and price must be a number between 1 and 20,000 with 2 decimal place precision.",
       "price": 5000
-    },
-    {
-      "id": "4",
-      "name": "a",
-      "description": "d",
-      "price": 123
-    },
-    {
-      "id": "5",
-      "name": "b",
-      "description": "eiouoi",
-      "price": 12
-    },
-    {
-      "id": "6",
-      "name": "c",
-      "description": "dlkjñlk",
-      "price": 12
-    },
-    {
-      "name": "dedo",
-      "description": "vientos!!!",
-      "price": 324,
-      "id": "7"
-    },
-    {
-      "id": "8",
-      "name": "e",
-      "description": "asdf",
-      "price": 23
-    },
-    {
-      "id": "9",
-      "name": "f",
-      "description": "ese es nuevo",
-      "price": 234
     }
   ]
 }
