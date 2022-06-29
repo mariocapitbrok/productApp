@@ -1,12 +1,9 @@
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import productService from '../services/products'
 
-const ProductsHeader = ({
-  products,
-  setProducts,
-  checkedState,
-  setCheckedState,
-}) => {
+const ProductsHeader = ({ products, setProducts, checkedState }) => {
+  const navigate = useNavigate()
+
   const handleRemove = () => {
     const selectedIds = checkedState.reduce((ids, state, index) => {
       if (state === true) ids = [...ids, products[index].id]
@@ -26,8 +23,8 @@ const ProductsHeader = ({
       )
     })
 
-    setProducts(remainingProducts)
-    setCheckedState(new Array(remainingProducts.length).fill(false))
+    //setProducts(remainingProducts)
+    navigate('/products', { replace: true })
   }
 
   return (

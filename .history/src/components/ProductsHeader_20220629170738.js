@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import productService from '../services/products'
 
@@ -7,6 +8,10 @@ const ProductsHeader = ({
   checkedState,
   setCheckedState,
 }) => {
+  const [selectedIds, setSelectedIds] = useState([])
+
+  useEffect(() => {}, [])
+
   const handleRemove = () => {
     const selectedIds = checkedState.reduce((ids, state, index) => {
       if (state === true) ids = [...ids, products[index].id]
@@ -27,8 +32,9 @@ const ProductsHeader = ({
     })
 
     setProducts(remainingProducts)
-    setCheckedState(new Array(remainingProducts.length).fill(false))
+    console.log(remainingProducts.filter(p => p.id).map(p => p.id))
   }
+  //console.log(remainingProducts.filter(p => p.id).map(p => p.id))
 
   return (
     <div className="product-header">

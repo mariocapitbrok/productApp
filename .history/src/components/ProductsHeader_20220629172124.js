@@ -27,7 +27,7 @@ const ProductsHeader = ({
     })
 
     setProducts(remainingProducts)
-    setCheckedState(new Array(remainingProducts.length).fill(false))
+    console.log(remainingProducts.filter(p => p.id).map(p => p.id))
   }
 
   return (

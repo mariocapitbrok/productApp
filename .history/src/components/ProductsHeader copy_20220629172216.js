@@ -1,12 +1,7 @@
 import { Link } from 'react-router-dom'
 import productService from '../services/products'
 
-const ProductsHeader = ({
-  products,
-  setProducts,
-  checkedState,
-  setCheckedState,
-}) => {
+const ProductsHeader = ({ products, setProducts, checkedState }) => {
   const handleRemove = () => {
     const selectedIds = checkedState.reduce((ids, state, index) => {
       if (state === true) ids = [...ids, products[index].id]
@@ -27,7 +22,7 @@ const ProductsHeader = ({
     })
 
     setProducts(remainingProducts)
-    setCheckedState(new Array(remainingProducts.length).fill(false))
+    console.log(remainingProducts.filter(p => p.id).map(p => p.id))
   }
 
   return (

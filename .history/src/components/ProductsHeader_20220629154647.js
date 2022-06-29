@@ -1,12 +1,7 @@
 import { Link } from 'react-router-dom'
 import productService from '../services/products'
 
-const ProductsHeader = ({
-  products,
-  setProducts,
-  checkedState,
-  setCheckedState,
-}) => {
+const ProductsHeader = ({ products, setProducts, checkedState }) => {
   const handleRemove = () => {
     const selectedIds = checkedState.reduce((ids, state, index) => {
       if (state === true) ids = [...ids, products[index].id]
@@ -18,16 +13,26 @@ const ProductsHeader = ({
       return ids
     }, [])
 
-    let resolvedPromise = Promise.resolve()
+    console.log(selectedIds)
+
+    /* for (let i = 0, p = Promise.resolve(); i < selectedIds.length; i++) {
+      p = p
+        .then(productService.remove(selectedIds[i]))
+        .then(console.log('Removed', selectedIds[i]))
+    } */
+
+    let promises = []
 
     selectedIds.forEach(id => {
-      resolvedPromise = resolvedPromise.then(response =>
-        productService.remove(id)
-      )
+      let promise = new Promise((resolve, reject) => {
+        resolve(productService.remove(id))
+      })
+      promises = [...promises, promise]
     })
 
-    setProducts(remainingProducts)
-    setCheckedState(new Array(remainingProducts.length).fill(false))
+    console.log(promises)
+
+    //setProducts(remainingProducts)
   }
 
   return (
