@@ -74,8 +74,6 @@ const ProductForm = () => {
   }
 
   useEffect(() => {
-    handleCleanUp()
-
     setNewProduct({
       price: price ? price : 1,
     })

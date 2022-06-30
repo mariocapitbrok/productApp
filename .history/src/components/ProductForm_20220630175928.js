@@ -15,7 +15,7 @@ const ProductForm = () => {
   const params = useParams()
 
   const productSchema = Joi.object({
-    name: Joi.string().min(3).max(100).required(),
+    name: Joi.string().required().min(3).max(100),
     description: Joi.string().min(5).max(1000),
     price: Joi.number().min(1).max(20000).precision(2),
     id: Joi.string(),
@@ -74,8 +74,6 @@ const ProductForm = () => {
   }
 
   useEffect(() => {
-    handleCleanUp()
-
     setNewProduct({
       price: price ? price : 1,
     })
@@ -95,7 +93,6 @@ const ProductForm = () => {
         })
       })
       .then(setErrors(validate()))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, params.id])
 
   useEffect(() => {

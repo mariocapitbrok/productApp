@@ -15,7 +15,7 @@ const ProductForm = () => {
   const params = useParams()
 
   const productSchema = Joi.object({
-    name: Joi.string().min(3).max(100).required(),
+    name: Joi.string().min(3).max(100),
     description: Joi.string().min(5).max(1000),
     price: Joi.number().min(1).max(20000).precision(2),
     id: Joi.string(),
@@ -74,28 +74,18 @@ const ProductForm = () => {
   }
 
   useEffect(() => {
-    handleCleanUp()
-
-    setNewProduct({
-      price: price ? price : 1,
-    })
-
     if (params.id === 'new') return
 
-    productService
-      .getOne(params.id)
-      .then(product => {
-        setName(product.name)
-        setDescription(product.description)
-        setPrice(product.price)
-        setNewProduct({
-          name: product.name,
-          description: product.description,
-          price: product.price,
-        })
+    productService.getOne(params.id).then(product => {
+      setName(product.name)
+      setDescription(product.description)
+      setPrice(product.price)
+      setNewProduct({
+        name: product.name,
+        description: product.description,
+        price: product.price,
       })
-      .then(setErrors(validate()))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    })
   }, [navigate, params.id])
 
   useEffect(() => {
@@ -139,13 +129,10 @@ const ProductForm = () => {
       id: String((Math.random() * 1000).toFixed(0)),
       ...newProduct,
     }
-    productService
-      .create(product)
-      .then(response => {
-        setProducts([...products, product])
-        return
-      })
-      .then(handleCleanUp())
+    productService.create(product).then(response => {
+      setProducts([...products, product])
+      return
+    })
   }
 
   const handleUpdate = () => {
@@ -154,18 +141,7 @@ const ProductForm = () => {
       product.id === id ? { id, ...newProduct } : product
     )
 
-    productService
-      .update(id, newProduct)
-      .then(setProducts(updatedProducts))
-      .then(handleCleanUp())
-  }
-
-  const handleCleanUp = () => {
-    setName('')
-    setDescription('')
-    setPrice(1)
-    setNewProduct({})
-    setErrors({})
+    productService.update(id, newProduct).then(setProducts(updatedProducts))
   }
 
   const handleSubmit = event => {
@@ -230,7 +206,7 @@ const ProductForm = () => {
             className="form-control"
             id="price"
             onChange={handlePriceChange}
-            value={price.toString()}
+            value={price}
           />
           {errors && errors.price && (
             <div className="alert alert-danger">{errors.price}</div>
@@ -238,13 +214,6 @@ const ProductForm = () => {
         </div>
         <button type="submit" className="submit btn btn-primary">
           Save
-        </button>
-        <button
-          type="button"
-          className="btn btn-light"
-          onClick={() => navigate('/products', { replace: true })}
-        >
-          Cancel
         </button>
       </form>
     </div>
