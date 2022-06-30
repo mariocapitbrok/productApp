@@ -17,18 +17,6 @@
       "description": "Description string between 5 and 1000 characters and price must be a number between 1 and 20,000 with 2 decimal place precision.",
       "price": 5001,
       "id": "3"
-    },
-    {
-      "name": "ddd",
-      "description": "ddddd modified\n",
-      "price": 29,
-      "id": "307"
-    },
-    {
-      "name": "lkjlklk",
-      "description": "wqwreqwe",
-      "price": 1234,
-      "id": "349"
     }
   ]
 }
