@@ -109,7 +109,9 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    if (errors) return
+    const validationErrors = validate()
+    //console.log(validationErrors)
+    if (validationErrors) return
 
     if (params.id === 'new') {
       handleCreate()
@@ -133,11 +135,8 @@ const ProductForm = () => {
             onChange={handleNameChange}
             value={name}
           />
-          {errors && errors.name && (
+          {errors.name && (
             <div className="alert alert-danger">{errors.name}</div>
-          )}
-          {console.log(
-            errors && <div className="alert alert-danger">{errors.name}</div>
           )}
         </div>
         <div className="mb-3">
@@ -151,7 +150,7 @@ const ProductForm = () => {
             onChange={handleDescriptionChange}
             value={description}
           ></textarea>
-          {errors && errors.description && (
+          {errors.description && (
             <div className="alert alert-danger">{errors.description}</div>
           )}
         </div>
@@ -168,7 +167,7 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {errors && errors.price && (
+          {errors.price && (
             <div className="alert alert-danger">{errors.price}</div>
           )}
         </div>

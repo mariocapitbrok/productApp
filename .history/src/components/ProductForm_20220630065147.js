@@ -51,11 +51,6 @@ const ProductForm = () => {
     })
   }, [navigate, params.id])
 
-  useEffect(() => {
-    setErrors(validate())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, description, price])
-
   const handleNameChange = event => {
     event.preventDefault()
     setName(event.target.value)
@@ -95,8 +90,6 @@ const ProductForm = () => {
     })
   }
 
-  console.log(errors)
-
   const handleUpdate = () => {
     const id = params.id
     const updatedProducts = products.map(product =>
@@ -109,7 +102,10 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    if (errors) return
+    const validationErrors = validate()
+    //console.log(validationErrors)
+    setErrors({ validationErrors })
+    if (validationErrors) return
 
     if (params.id === 'new') {
       handleCreate()
@@ -124,7 +120,7 @@ const ProductForm = () => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
-            Product name
+            Product name {errors.name}
           </label>
           <input
             type="text"
@@ -133,11 +129,8 @@ const ProductForm = () => {
             onChange={handleNameChange}
             value={name}
           />
-          {errors && errors.name && (
-            <div className="alert alert-danger">{errors.name}</div>
-          )}
-          {console.log(
-            errors && <div className="alert alert-danger">{errors.name}</div>
+          {validate() && (
+            <div className="alert alert-danger">{validate().name}</div>
           )}
         </div>
         <div className="mb-3">
@@ -151,8 +144,8 @@ const ProductForm = () => {
             onChange={handleDescriptionChange}
             value={description}
           ></textarea>
-          {errors && errors.description && (
-            <div className="alert alert-danger">{errors.description}</div>
+          {validate() && (
+            <div className="alert alert-danger">{validate().description}</div>
           )}
         </div>
         <div className="mb-3">
@@ -168,8 +161,8 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {errors && errors.price && (
-            <div className="alert alert-danger">{errors.price}</div>
+          {validate() && (
+            <div className="alert alert-danger">{validate().price}</div>
           )}
         </div>
         <button type="submit" className="submit btn btn-primary">

@@ -109,7 +109,9 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    if (errors) return
+    const validationErrors = validate()
+    //console.log(validationErrors)
+    if (validationErrors) return
 
     if (params.id === 'new') {
       handleCreate()

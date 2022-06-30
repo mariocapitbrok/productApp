@@ -109,7 +109,9 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    if (errors) return
+    const validationErrors = validate()
+    //console.log(validationErrors)
+    if (validationErrors) return
 
     if (params.id === 'new') {
       handleCreate()
@@ -168,9 +170,7 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {errors && errors.price && (
-            <div className="alert alert-danger">{errors.price}</div>
-          )}
+          {errors && <div className="alert alert-danger">{errors.price}</div>}
         </div>
         <button type="submit" className="submit btn btn-primary">
           Save

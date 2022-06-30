@@ -95,8 +95,6 @@ const ProductForm = () => {
     })
   }
 
-  console.log(errors)
-
   const handleUpdate = () => {
     const id = params.id
     const updatedProducts = products.map(product =>
@@ -109,7 +107,9 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    if (errors) return
+    const validationErrors = validate()
+    //console.log(validationErrors)
+    if (validationErrors) return
 
     if (params.id === 'new') {
       handleCreate()
@@ -133,11 +133,8 @@ const ProductForm = () => {
             onChange={handleNameChange}
             value={name}
           />
-          {errors && errors.name && (
-            <div className="alert alert-danger">{errors.name}</div>
-          )}
-          {console.log(
-            errors && <div className="alert alert-danger">{errors.name}</div>
+          {validate() && (
+            <div className="alert alert-danger">{validate().name}</div>
           )}
         </div>
         <div className="mb-3">
@@ -151,8 +148,8 @@ const ProductForm = () => {
             onChange={handleDescriptionChange}
             value={description}
           ></textarea>
-          {errors && errors.description && (
-            <div className="alert alert-danger">{errors.description}</div>
+          {validate() && (
+            <div className="alert alert-danger">{validate().description}</div>
           )}
         </div>
         <div className="mb-3">
@@ -168,8 +165,8 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {errors && errors.price && (
-            <div className="alert alert-danger">{errors.price}</div>
+          {validate() && (
+            <div className="alert alert-danger">{validate().price}</div>
           )}
         </div>
         <button type="submit" className="submit btn btn-primary">
