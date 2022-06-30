@@ -1,0 +1,20 @@
+{
+  "name": "product-app",
+  "version": "1.0.0",
+  "description": "Trackstar CodeChallenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "products",
+    "react",
+    "nodejs"
+  ],
+  "author": "Mario Capitbrok",
+  "license": "MIT",
+  "dependencies": {
+    "nodemon": "^2.0.18"
+  }
+}
