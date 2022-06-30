@@ -32,6 +32,7 @@ const ProductForm = () => {
     for (let item of result.error.details) {
       errors[item.path[0]] = item.message
     }
+    // console.log(errors)
     return errors
   }
 
@@ -103,7 +104,6 @@ const ProductForm = () => {
     event.preventDefault()
 
     const validationErrors = validate()
-    console.log(validationErrors)
     setErrors({ validationErrors })
     if (validationErrors) return
 

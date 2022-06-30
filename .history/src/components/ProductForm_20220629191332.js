@@ -32,6 +32,7 @@ const ProductForm = () => {
     for (let item of result.error.details) {
       errors[item.path[0]] = item.message
     }
+    // console.log(errors)
     return errors
   }
 
@@ -102,10 +103,9 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    const validationErrors = validate()
-    console.log(validationErrors)
-    setErrors({ validationErrors })
-    if (validationErrors) return
+    const errors = validate()
+    setErrors(errors)
+    if (errors) return
 
     if (params.id === 'new') {
       handleCreate()

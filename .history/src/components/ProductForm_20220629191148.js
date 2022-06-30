@@ -32,6 +32,7 @@ const ProductForm = () => {
     for (let item of result.error.details) {
       errors[item.path[0]] = item.message
     }
+    // console.log(errors)
     return errors
   }
 
@@ -102,11 +103,6 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    const validationErrors = validate()
-    console.log(validationErrors)
-    setErrors({ validationErrors })
-    if (validationErrors) return
-
     if (params.id === 'new') {
       handleCreate()
     } else {
@@ -114,6 +110,9 @@ const ProductForm = () => {
     }
     navigate('/products', { replace: true })
   }
+
+  validate() // later, this has to be ordered properly.
+  //console.log(newProduct)
 
   return (
     <div className="product-form">
