@@ -71,11 +71,10 @@ const ProductForm = () => {
 
   const handlePriceChange = event => {
     event.preventDefault()
-    const value = event.target.value
-    setPrice(Number(value))
+    setPrice(Number(event.target.value))
     setNewProduct({
       ...newProduct,
-      price: Number(value),
+      price: Number(event.target.value),
     })
   }
 
@@ -84,9 +83,12 @@ const ProductForm = () => {
       id: String((Math.random() * 1000).toFixed(0)),
       ...newProduct,
     }
+    console.log(product)
+    console.log(checkedState)
     productService.create(product).then(response => {
       setProducts([...products, product])
       setCheckedState([...checkedState, false])
+      console.log(checkedState)
       return
     })
   }
@@ -113,6 +115,7 @@ const ProductForm = () => {
 
   validate() // later, this has to be ordered properly.
   //console.log(newProduct)
+  console.log(checkedState)
 
   return (
     <div className="product-form">

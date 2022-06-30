@@ -8,7 +8,7 @@ const ProductForm = () => {
     useOutletContext()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState(1)
   const [newProduct, setNewProduct] = useState({})
   //const [errors, setErrors] = useState([])
 
@@ -71,7 +71,8 @@ const ProductForm = () => {
 
   const handlePriceChange = event => {
     event.preventDefault()
-    const value = event.target.value
+    let value = event.target.value
+    if (value === 0) value = null
     setPrice(Number(value))
     setNewProduct({
       ...newProduct,

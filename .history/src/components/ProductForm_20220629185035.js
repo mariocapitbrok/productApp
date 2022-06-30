@@ -71,11 +71,12 @@ const ProductForm = () => {
 
   const handlePriceChange = event => {
     event.preventDefault()
-    const value = event.target.value
-    setPrice(Number(value))
+    let value = event.target.value
+    value === 0 ? (value = '') : Number(value)
+    setPrice(value)
     setNewProduct({
       ...newProduct,
-      price: Number(value),
+      price: value,
     })
   }
 
@@ -113,6 +114,7 @@ const ProductForm = () => {
 
   validate() // later, this has to be ordered properly.
   //console.log(newProduct)
+  console.log(checkedState)
 
   return (
     <div className="product-form">

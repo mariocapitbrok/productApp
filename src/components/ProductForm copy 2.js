@@ -4,8 +4,7 @@ import Joi from 'joi-browser'
 import productService from '../services/products'
 
 const ProductForm = () => {
-  const [products, setProducts, checkedState, setCheckedState] =
-    useOutletContext()
+  const [products, setProducts] = useOutletContext()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
@@ -71,24 +70,20 @@ const ProductForm = () => {
 
   const handlePriceChange = event => {
     event.preventDefault()
-    const value = event.target.value
-    setPrice(Number(value))
+    setPrice(Number(event.target.value))
     setNewProduct({
       ...newProduct,
-      price: Number(value),
+      price: Number(event.target.value),
     })
   }
 
   const handleCreate = () => {
     const product = {
-      id: String((Math.random() * 1000).toFixed(0)),
+      id: String(products.length + 1),
       ...newProduct,
     }
-    productService.create(product).then(response => {
-      setProducts([...products, product])
-      setCheckedState([...checkedState, false])
-      return
-    })
+
+    productService.create(product).then(setProducts([...products, product]))
   }
 
   const handleUpdate = () => {
@@ -146,9 +141,7 @@ const ProductForm = () => {
             Price
           </label>
           <input
-            type="number"
-            step="1"
-            ng-pattern="/^[0-9]{1,8}$|^$/"
+            type="text"
             className="form-control"
             id="price"
             onChange={handlePriceChange}

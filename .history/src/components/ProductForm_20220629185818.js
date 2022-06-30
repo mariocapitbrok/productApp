@@ -71,7 +71,8 @@ const ProductForm = () => {
 
   const handlePriceChange = event => {
     event.preventDefault()
-    const value = event.target.value
+    let value = event.target.value
+    if (value === 0) value = ''
     setPrice(Number(value))
     setNewProduct({
       ...newProduct,

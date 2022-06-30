@@ -20,9 +20,7 @@ const Products = () => {
 
   return (
     <div className="products">
-      <Outlet
-        context={[products, setProducts, checkedState, setCheckedState]}
-      />
+      <Outlet context={[checkedState, setCheckedState]} />
       <ProductsHeader
         products={products}
         setProducts={setProducts}

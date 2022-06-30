@@ -71,11 +71,10 @@ const ProductForm = () => {
 
   const handlePriceChange = event => {
     event.preventDefault()
-    const value = event.target.value
-    setPrice(Number(value))
+    setPrice(Number(event.target.value))
     setNewProduct({
       ...newProduct,
-      price: Number(value),
+      price: Number(event.target.value),
     })
   }
 
@@ -84,9 +83,12 @@ const ProductForm = () => {
       id: String((Math.random() * 1000).toFixed(0)),
       ...newProduct,
     }
+
+    console.log(checkedState)
     productService.create(product).then(response => {
       setProducts([...products, product])
-      setCheckedState([...checkedState, false])
+      setCheckedState(new Array(products.length + 1).fill(false))
+      console.log(checkedState)
       return
     })
   }
@@ -113,6 +115,7 @@ const ProductForm = () => {
 
   validate() // later, this has to be ordered properly.
   //console.log(newProduct)
+  console.log(checkedState)
 
   return (
     <div className="product-form">
@@ -146,9 +149,7 @@ const ProductForm = () => {
             Price
           </label>
           <input
-            type="number"
-            step="1"
-            ng-pattern="/^[0-9]{1,8}$|^$/"
+            type="text"
             className="form-control"
             id="price"
             onChange={handlePriceChange}
