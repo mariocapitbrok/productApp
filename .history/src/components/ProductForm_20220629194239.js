@@ -10,6 +10,7 @@ const ProductForm = () => {
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [newProduct, setNewProduct] = useState({})
+  const [errors, setErrors] = useState({})
 
   const navigate = useNavigate()
   const params = useParams()
@@ -32,6 +33,7 @@ const ProductForm = () => {
       joiErrors[item.path[0]] = item.message
     }
 
+    setErrors(joiErrors)
     return joiErrors
   }
 
@@ -102,9 +104,12 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    const validationErrors = validate()
-    //console.log(validationErrors)
+    /* const validationErrors = validate()
+    console.log(validationErrors)
+    setErrors({ validationErrors })
     if (validationErrors) return
+    console.log(errors) */
+    console.log(errors)
 
     if (params.id === 'new') {
       handleCreate()
@@ -128,9 +133,7 @@ const ProductForm = () => {
             onChange={handleNameChange}
             value={name}
           />
-          {validate() && (
-            <div className="alert alert-danger">{validate().name}</div>
-          )}
+          <div className="alert alert-danger">{errors.description}</div>
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
@@ -143,9 +146,6 @@ const ProductForm = () => {
             onChange={handleDescriptionChange}
             value={description}
           ></textarea>
-          {validate() && (
-            <div className="alert alert-danger">{validate().description}</div>
-          )}
         </div>
         <div className="mb-3">
           <label htmlFor="price" className="form-label">
@@ -160,9 +160,6 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {validate() && (
-            <div className="alert alert-danger">{validate().price}</div>
-          )}
         </div>
         <button type="submit" className="submit btn btn-primary">
           Save

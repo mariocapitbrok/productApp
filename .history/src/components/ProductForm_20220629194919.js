@@ -128,7 +128,7 @@ const ProductForm = () => {
             onChange={handleNameChange}
             value={name}
           />
-          {validate() && (
+          {validate().name && (
             <div className="alert alert-danger">{validate().name}</div>
           )}
         </div>
@@ -143,7 +143,7 @@ const ProductForm = () => {
             onChange={handleDescriptionChange}
             value={description}
           ></textarea>
-          {validate() && (
+          {validate().description && (
             <div className="alert alert-danger">{validate().description}</div>
           )}
         </div>
@@ -160,8 +160,8 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {validate() && (
-            <div className="alert alert-danger">{validate().price}</div>
+          {validate().price && (
+            <div className="alert alert-danger">{validate().pricen}</div>
           )}
         </div>
         <button type="submit" className="submit btn btn-primary">

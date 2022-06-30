@@ -160,9 +160,6 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {validate() && (
-            <div className="alert alert-danger">{validate().price}</div>
-          )}
         </div>
         <button type="submit" className="submit btn btn-primary">
           Save

@@ -145,7 +145,7 @@ const ProductForm = () => {
           ></textarea>
           {validate() && (
             <div className="alert alert-danger">{validate().description}</div>
-          )}
+          )}{' '}
         </div>
         <div className="mb-3">
           <label htmlFor="price" className="form-label">
@@ -160,9 +160,6 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {validate() && (
-            <div className="alert alert-danger">{validate().price}</div>
-          )}
         </div>
         <button type="submit" className="submit btn btn-primary">
           Save

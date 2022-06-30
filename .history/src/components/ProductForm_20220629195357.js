@@ -160,7 +160,7 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {validate() && (
+          {({validate().price}) && (
             <div className="alert alert-danger">{validate().price}</div>
           )}
         </div>

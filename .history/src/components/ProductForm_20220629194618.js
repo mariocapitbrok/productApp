@@ -10,6 +10,7 @@ const ProductForm = () => {
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [newProduct, setNewProduct] = useState({})
+  const [errors, setErrors] = useState({})
 
   const navigate = useNavigate()
   const params = useParams()
@@ -104,6 +105,7 @@ const ProductForm = () => {
 
     const validationErrors = validate()
     //console.log(validationErrors)
+    setErrors({ validationErrors })
     if (validationErrors) return
 
     if (params.id === 'new') {
@@ -128,9 +130,7 @@ const ProductForm = () => {
             onChange={handleNameChange}
             value={name}
           />
-          {validate() && (
-            <div className="alert alert-danger">{validate().name}</div>
-          )}
+          <div className="alert alert-danger">{validate().name}</div>
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
@@ -143,9 +143,6 @@ const ProductForm = () => {
             onChange={handleDescriptionChange}
             value={description}
           ></textarea>
-          {validate() && (
-            <div className="alert alert-danger">{validate().description}</div>
-          )}
         </div>
         <div className="mb-3">
           <label htmlFor="price" className="form-label">
@@ -160,9 +157,6 @@ const ProductForm = () => {
             onChange={handlePriceChange}
             value={price}
           />
-          {validate() && (
-            <div className="alert alert-danger">{validate().price}</div>
-          )}
         </div>
         <button type="submit" className="submit btn btn-primary">
           Save
