@@ -14,60 +14,46 @@ const ProductForm = () => {
   const navigate = useNavigate()
   const params = useParams()
 
-  const productSchema = Joi.object({
+  const schemaA = Joi.object({
+    id: Joi.string(),
     name: Joi.string().min(3).max(100),
     description: Joi.string().min(5).max(1000),
     price: Joi.number().min(1).max(20000).precision(2),
-    id: Joi.string(),
   }).required()
 
-  const allNamesSchema = Joi.array().items(productSchema).unique('name')
+  const schemaB = Joi.array()
+    .items(
+      Joi.object().keys({
+        id: Joi.string(),
+        name: Joi.string().min(3).max(100),
+        description: Joi.string().min(5).max(1000),
+        price: Joi.number().min(1).max(20000).precision(2),
+      })
+    )
+    .required()
+    .unique((a, b) => a.name === b.name)
+  //console.log(schemaB)
 
   const validate = () => {
-    const objectResult = Joi.validate(newProduct, productSchema, {
+    const resultA = Joi.validate(newProduct, schemaA, {
       abortEarly: false,
     })
 
-    let productsArray = []
-
-    if (params.id === 'new') {
-      productsArray = [newProduct, ...products]
-    } else {
-      productsArray = [...products]
-    }
-
-    console.log('productsArray', productsArray)
-    const arrayResult = Joi.validate(productsArray, allNamesSchema, {
+    const resultB = Joi.validate(products, schemaB, {
       abortEarly: false,
     })
+    console.log(resultB)
 
-    if (!objectResult.error && !arrayResult.error) return null
+    const result = resultA
 
-    let joiObjErrors = {}
-    let joiArrErrors = {}
+    //console.log(result)
 
-    if (objectResult.error !== null) {
-      for (let i of objectResult.error.details) {
-        joiObjErrors[i.path[0]] = i.message
-      }
+    if (!result.error) return null
+
+    const joiErrors = {}
+    for (let i of result.error.details) {
+      joiErrors[i.path[0]] = i.message
     }
-
-    console.log('arrayResult', arrayResult)
-    if (arrayResult.error) {
-      const path = arrayResult.error.details[0].context.path
-      const message = arrayResult.error.details[0].message
-      console.log('message', message, 'path', path)
-
-      if (path === 'name' && message.includes('duplicate')) {
-        joiArrErrors = { name: `Type a different name, ${message}` }
-      }
-    }
-
-    console.log('joiArrErrors', joiArrErrors)
-    console.log('joiObjErrors', joiObjErrors)
-
-    const joiErrors = { ...joiObjErrors, ...joiArrErrors }
-    console.log('joiErrors', joiErrors)
 
     return joiErrors
   }
@@ -158,11 +144,9 @@ const ProductForm = () => {
     } else {
       handleUpdate()
     }
-
     navigate('/products', { replace: true })
   }
 
-  //console.log(errors)
   return (
     <div className="product-form">
       <form onSubmit={handleSubmit}>

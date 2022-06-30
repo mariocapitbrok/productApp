@@ -59,14 +59,16 @@ const ProductForm = () => {
       console.log('message', message, 'path', path)
 
       if (path === 'name' && message.includes('duplicate')) {
-        joiArrErrors = { name: `Type a different name, ${message}` }
+        const newError = { name: `Type a different name, ${message}` }
+        console.log('newError', newError)
+        joiArrErrors = { ...joiArrErrors, newError }
       }
     }
 
     console.log('joiArrErrors', joiArrErrors)
     console.log('joiObjErrors', joiObjErrors)
 
-    const joiErrors = { ...joiObjErrors, ...joiArrErrors }
+    const joiErrors = { ...joiObjErrors }
     console.log('joiErrors', joiErrors)
 
     return joiErrors

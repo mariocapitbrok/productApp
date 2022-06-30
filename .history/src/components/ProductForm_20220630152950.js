@@ -43,8 +43,8 @@ const ProductForm = () => {
 
     if (!objectResult.error && !arrayResult.error) return null
 
-    let joiObjErrors = {}
-    let joiArrErrors = {}
+    const joiObjErrors = {}
+    const joiArrErrors = {}
 
     if (objectResult.error !== null) {
       for (let i of objectResult.error.details) {
@@ -59,14 +59,15 @@ const ProductForm = () => {
       console.log('message', message, 'path', path)
 
       if (path === 'name' && message.includes('duplicate')) {
-        joiArrErrors = { name: `Type a different name, ${message}` }
+        const newError = new Error(`Type a different name, ${message}`)
+        console.log('newError', newError)
       }
     }
 
     console.log('joiArrErrors', joiArrErrors)
     console.log('joiObjErrors', joiObjErrors)
 
-    const joiErrors = { ...joiObjErrors, ...joiArrErrors }
+    const joiErrors = { ...joiObjErrors }
     console.log('joiErrors', joiErrors)
 
     return joiErrors

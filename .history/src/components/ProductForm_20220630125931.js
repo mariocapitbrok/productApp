@@ -14,63 +14,74 @@ const ProductForm = () => {
   const navigate = useNavigate()
   const params = useParams()
 
-  const productSchema = Joi.object({
+  const objetSchema = Joi.object({
+    id: Joi.string(),
     name: Joi.string().min(3).max(100),
     description: Joi.string().min(5).max(1000),
     price: Joi.number().min(1).max(20000).precision(2),
-    id: Joi.string(),
   }).required()
 
-  const allNamesSchema = Joi.array().items(productSchema).unique('name')
+  const arraySchema = Joi.array().items(objetSchema).unique('name')
 
-  const validate = () => {
-    const objectResult = Joi.validate(newProduct, productSchema, {
+  const validateObject = () => {
+    const objectResult = Joi.validate(newProduct, objetSchema, {
       abortEarly: false,
     })
 
-    let productsArray = []
+    if (!objectResult.error) return null
 
-    if (params.id === 'new') {
-      productsArray = [newProduct, ...products]
-    } else {
-      productsArray = [...products]
-    }
-
-    console.log('productsArray', productsArray)
-    const arrayResult = Joi.validate(productsArray, allNamesSchema, {
-      abortEarly: false,
-    })
-
-    if (!objectResult.error && !arrayResult.error) return null
-
-    let joiObjErrors = {}
-    let joiArrErrors = {}
+    const joiObjectErrors = {}
 
     if (objectResult.error !== null) {
       for (let i of objectResult.error.details) {
-        joiObjErrors[i.path[0]] = i.message
+        joiObjectErrors[i.path[0]] = i.message
       }
     }
 
-    console.log('arrayResult', arrayResult)
-    if (arrayResult.error) {
-      const path = arrayResult.error.details[0].context.path
-      const message = arrayResult.error.details[0].message
-      console.log('message', message, 'path', path)
+    return joiObjectErrors
+  }
 
-      if (path === 'name' && message.includes('duplicate')) {
-        joiArrErrors = { name: `Type a different name, ${message}` }
+  const validateArray = () => {
+    const productsArray = [...products, { ...newProduct }]
+
+    const arrayResult = Joi.validate(productsArray, arraySchema, {
+      abortEarly: false,
+    })
+
+    const joiArrayErrors = {}
+
+    if (arrayResult.error !== null) {
+      //console.log(arrayResult.error === null ? null : arrayResult.error.details)
+
+      for (let i of arrayResult.error.details) {
+        joiArrayErrors[i.context.path] =
+          `${
+            i.message.includes('duplicate')
+              ? `Select a different ${i.context.path}.`
+              : ''
+          } ` +
+          `${i.message ? i.message : ''} ` +
+          `@ position ${i.context.dupePos ? i.context.dupePos : ''}.`
       }
     }
 
-    console.log('joiArrErrors', joiArrErrors)
-    console.log('joiObjErrors', joiObjErrors)
+    return joiArrayErrors
+  }
 
-    const joiErrors = { ...joiObjErrors, ...joiArrErrors }
-    console.log('joiErrors', joiErrors)
+  const validateAll = () => {
+    let joiErrors = {}
 
+    if (params.id === 'new') {
+      joiErrors = { ...validateObject(), ...validateArray() }
+    } else {
+      joiErrors = { ...validateObject() }
+    }
+
+    setErrors(joiErrors)
     return joiErrors
   }
+
+  console.log(errors)
 
   useEffect(() => {
     setNewProduct({
@@ -92,7 +103,7 @@ const ProductForm = () => {
   }, [navigate, params.id, price])
 
   useEffect(() => {
-    setErrors(validate())
+    setErrors(validateAll())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, description, price])
 
@@ -150,7 +161,7 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    validate()
+    validateAll()
     if (errors) return
 
     if (params.id === 'new') {
@@ -162,7 +173,6 @@ const ProductForm = () => {
     navigate('/products', { replace: true })
   }
 
-  //console.log(errors)
   return (
     <div className="product-form">
       <form onSubmit={handleSubmit}>

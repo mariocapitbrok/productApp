@@ -17,24 +17,6 @@
       "name": "bbb",
       "description": "Description string between 5 and 1000 characters and price must be a number between 1 and 20,000 with 2 decimal place precision.",
       "price": 5000
-    },
-    {
-      "id": "563",
-      "name": "ccc",
-      "description": "ljsñlf",
-      "price": 1
-    },
-    {
-      "id": "485",
-      "name": "bbbb",
-      "description": "desñlj",
-      "price": 134
-    },
-    {
-      "id": "22",
-      "price": 1,
-      "name": "aax",
-      "description": "ssdfñlkj"
     }
   ]
 }

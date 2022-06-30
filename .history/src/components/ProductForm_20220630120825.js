@@ -14,37 +14,30 @@ const ProductForm = () => {
   const navigate = useNavigate()
   const params = useParams()
 
-  const productSchema = Joi.object({
+  const objetSchema = Joi.object({
+    id: Joi.string(),
     name: Joi.string().min(3).max(100),
     description: Joi.string().min(5).max(1000),
     price: Joi.number().min(1).max(20000).precision(2),
-    id: Joi.string(),
   }).required()
 
-  const allNamesSchema = Joi.array().items(productSchema).unique('name')
+  const arraySchema = Joi.array().items(objetSchema).unique('name')
 
   const validate = () => {
-    const objectResult = Joi.validate(newProduct, productSchema, {
+    const objectResult = Joi.validate(newProduct, objetSchema, {
       abortEarly: false,
     })
 
-    let productsArray = []
+    const productsArray = [...products, { ...newProduct }]
 
-    if (params.id === 'new') {
-      productsArray = [newProduct, ...products]
-    } else {
-      productsArray = [...products]
-    }
-
-    console.log('productsArray', productsArray)
-    const arrayResult = Joi.validate(productsArray, allNamesSchema, {
+    const arrayResult = Joi.validate(productsArray, arraySchema, {
       abortEarly: false,
     })
 
     if (!objectResult.error && !arrayResult.error) return null
 
-    let joiObjErrors = {}
-    let joiArrErrors = {}
+    const joiObjErrors = {}
+    const joiArrErrors = {}
 
     if (objectResult.error !== null) {
       for (let i of objectResult.error.details) {
@@ -52,24 +45,18 @@ const ProductForm = () => {
       }
     }
 
-    console.log('arrayResult', arrayResult)
-    if (arrayResult.error) {
-      const path = arrayResult.error.details[0].context.path
-      const message = arrayResult.error.details[0].message
-      console.log('message', message, 'path', path)
-
-      if (path === 'name' && message.includes('duplicate')) {
-        joiArrErrors = { name: `Type a different name, ${message}` }
+    if (arrayResult.error !== null) {
+      for (let i of arrayResult.error.details) {
+        joiArrErrors[i.context.path] =
+          `${i.message ? i.message : ''} ` +
+          `@ position ${i.context.dupePos ? i.context.dupePos : ''} `
       }
     }
 
-    console.log('joiArrErrors', joiArrErrors)
-    console.log('joiObjErrors', joiObjErrors)
-
     const joiErrors = { ...joiObjErrors, ...joiArrErrors }
-    console.log('joiErrors', joiErrors)
+    console.log(joiErrors)
 
-    return joiErrors
+    return joiObjErrors
   }
 
   useEffect(() => {
@@ -158,11 +145,9 @@ const ProductForm = () => {
     } else {
       handleUpdate()
     }
-
     navigate('/products', { replace: true })
   }
 
-  //console.log(errors)
   return (
     <div className="product-form">
       <form onSubmit={handleSubmit}>
