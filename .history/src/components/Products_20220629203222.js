@@ -13,6 +13,8 @@ const Products = () => {
   useEffect(() => {
     productService.getAll().then(products => {
       setProducts(products)
+      const newCheckedState = new Array(products.length).fill(false)
+      setCheckedState(newCheckedState)
     })
   }, [])
 
@@ -23,16 +25,19 @@ const Products = () => {
 
   return (
     <div className="products">
-      <Outlet context={[products, setProducts]} />
+      <Outlet
+        context={[products, setProducts, checkedState, setCheckedState]}
+      />
       <ProductsHeader
         products={products}
         setProducts={setProducts}
         checkedState={checkedState}
+        setCheckedState={setCheckedState}
       />
       <ProductsBody
+        products={products}
         checkedState={checkedState}
         setCheckedState={setCheckedState}
-        products={products}
       />
       <ProductsFooter />
     </div>

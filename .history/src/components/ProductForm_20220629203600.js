@@ -4,7 +4,8 @@ import Joi from 'joi-browser'
 import productService from '../services/products'
 
 const ProductForm = () => {
-  const [products, setProducts] = useOutletContext()
+  const [products, setProducts, checkedState, setCheckedState] =
+    useOutletContext()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
@@ -85,6 +86,7 @@ const ProductForm = () => {
     }
     productService.create(product).then(response => {
       setProducts([...products, product])
+      //setCheckedState([...checkedState, false])
       return
     })
   }

@@ -28,11 +28,12 @@ const Products = () => {
         products={products}
         setProducts={setProducts}
         checkedState={checkedState}
+        setCheckedState={setCheckedState}
       />
       <ProductsBody
+        products={products}
         checkedState={checkedState}
         setCheckedState={setCheckedState}
-        products={products}
       />
       <ProductsFooter />
     </div>
