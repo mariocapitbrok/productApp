@@ -44,10 +44,6 @@ const ProductForm = () => {
   }
 
   useEffect(() => {
-    setNewProduct({
-      price: price ? price : 1,
-    })
-
     if (params.id === 'new') return
 
     productService.getOne(params.id).then(product => {
@@ -57,10 +53,10 @@ const ProductForm = () => {
       setNewProduct({
         name: product.name,
         description: product.description,
-        price: product.price,
+        price: product.price ? product.price : 1,
       })
     })
-  }, [navigate, params.id, price])
+  }, [navigate, params.id])
 
   useEffect(() => {
     setErrors(validate())

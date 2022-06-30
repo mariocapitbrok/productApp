@@ -14,40 +14,29 @@ const ProductForm = () => {
   const navigate = useNavigate()
   const params = useParams()
 
-  const schemaA = Joi.object({
+  const schema = Joi.object({
     id: Joi.string(),
     name: Joi.string().min(3).max(100),
     description: Joi.string().min(5).max(1000),
     price: Joi.number().min(1).max(20000).precision(2),
   }).required()
 
-  const schemaB = Joi.array().unique('products.name')
-  console.log(schemaB)
-
   const validate = () => {
-    const resultA = Joi.validate(newProduct, schemaA, {
+    const result = Joi.validate(newProduct, schema, {
       abortEarly: false,
     })
-
-    const result = resultA
-
-    //console.log(result)
 
     if (!result.error) return null
 
     const joiErrors = {}
-    for (let i of result.error.details) {
-      joiErrors[i.path[0]] = i.message
+    for (let item of result.error.details) {
+      joiErrors[item.path[0]] = item.message
     }
 
     return joiErrors
   }
 
   useEffect(() => {
-    setNewProduct({
-      price: price ? price : 1,
-    })
-
     if (params.id === 'new') return
 
     productService.getOne(params.id).then(product => {
@@ -60,7 +49,7 @@ const ProductForm = () => {
         price: product.price,
       })
     })
-  }, [navigate, params.id, price])
+  }, [navigate, params.id])
 
   useEffect(() => {
     setErrors(validate())
@@ -87,14 +76,12 @@ const ProductForm = () => {
 
   const handlePriceChange = event => {
     event.preventDefault()
-    let value = Number(event.target.value)
-    if (isNaN(value)) return 0
-    if (typeof value === 'undefined') return 0
-    if (value === null) value = 0
-    setPrice(value)
+    const value = event.target.value
+    if (isNaN(Number(value))) return
+    setPrice(Number(value))
     setNewProduct({
       ...newProduct,
-      price: value,
+      price: Number(value),
     })
   }
 
@@ -109,6 +96,8 @@ const ProductForm = () => {
     })
   }
 
+  console.log(errors)
+
   const handleUpdate = () => {
     const id = params.id
     const updatedProducts = products.map(product =>
@@ -121,7 +110,6 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    validate()
     if (errors) return
 
     if (params.id === 'new') {
@@ -148,6 +136,9 @@ const ProductForm = () => {
           />
           {errors && errors.name && (
             <div className="alert alert-danger">{errors.name}</div>
+          )}
+          {console.log(
+            errors && <div className="alert alert-danger">{errors.name}</div>
           )}
         </div>
         <div className="mb-3">

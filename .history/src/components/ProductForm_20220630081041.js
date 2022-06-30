@@ -21,7 +21,7 @@ const ProductForm = () => {
     price: Joi.number().min(1).max(20000).precision(2),
   }).required()
 
-  const schemaB = Joi.array().unique('products.name')
+  const schemaB = products.map(product => product.name)
   console.log(schemaB)
 
   const validate = () => {
@@ -31,7 +31,7 @@ const ProductForm = () => {
 
     const result = resultA
 
-    //console.log(result)
+    console.log(result)
 
     if (!result.error) return null
 
@@ -44,10 +44,6 @@ const ProductForm = () => {
   }
 
   useEffect(() => {
-    setNewProduct({
-      price: price ? price : 1,
-    })
-
     if (params.id === 'new') return
 
     productService.getOne(params.id).then(product => {
@@ -60,7 +56,7 @@ const ProductForm = () => {
         price: product.price,
       })
     })
-  }, [navigate, params.id, price])
+  }, [navigate, params.id])
 
   useEffect(() => {
     setErrors(validate())
@@ -121,7 +117,6 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    validate()
     if (errors) return
 
     if (params.id === 'new') {
