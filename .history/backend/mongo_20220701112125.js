@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('donenv').config()
 const mongoose = require('mongoose')
 
 /* if (process.argv.length < 3) {
