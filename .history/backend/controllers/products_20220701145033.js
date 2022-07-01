@@ -31,27 +31,33 @@ productsRouter.get('/:id', async (request, response) => {
   }
 })
 
-productsRouter.put('/:id', async (request, response) => {
+productsRouter.put('/:id', (request, response) => {
   const id = request.params.id
-  const body = request.body
+  const oldProduct = products.find(product => product.id === id)
 
-  const newProduct = {
-    name: body.name,
-    description: body.description,
-    price: body.price,
+  if (oldProduct) {
+    const body = request.body
+    const newProduct = {
+      name: body.name,
+      description: body.description,
+      price: body.price,
+    }
+
+    const updatedProduct = { ...oldProduct, ...newProduct }
+
+    products = products.map(product =>
+      product.id === id ? updatedProduct : product
+    )
+
+    response.json(updatedProduct)
+  } else {
+    response.status(404).end()
   }
-
-  const updatedProduct = await Product.findByIdAndUpdate(id, newProduct, {
-    new: true,
-    runValidators: true,
-    context: 'query',
-  })
-  response.json(updatedProduct)
 })
 
-productsRouter.delete('/:id', async (request, response) => {
+productsRouter.delete('/:id', (request, response) => {
   const id = request.params.id
-  await Product.findByIdAndRemove(id)
+  products = products.filter(product => product.id !== id)
   response.status(204).end()
 })
 

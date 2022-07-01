@@ -31,7 +31,7 @@ productsRouter.get('/:id', async (request, response) => {
   }
 })
 
-productsRouter.put('/:id', async (request, response) => {
+productsRouter.put('/:id', (request, response) => {
   const id = request.params.id
   const body = request.body
 
@@ -41,17 +41,18 @@ productsRouter.put('/:id', async (request, response) => {
     price: body.price,
   }
 
-  const updatedProduct = await Product.findByIdAndUpdate(id, newProduct, {
+  const updatedProduct = await Product.findByIdAndUpdate(id, newProduct,{
     new: true,
     runValidators: true,
-    context: 'query',
+    context: 'query'
   })
   response.json(updatedProduct)
+  
 })
 
-productsRouter.delete('/:id', async (request, response) => {
+productsRouter.delete('/:id', (request, response) => {
   const id = request.params.id
-  await Product.findByIdAndRemove(id)
+  products = products.filter(product => product.id !== id)
   response.status(204).end()
 })
 
