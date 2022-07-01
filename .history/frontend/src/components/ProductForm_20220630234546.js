@@ -134,18 +134,11 @@ const ProductForm = () => {
     })
   }
 
-  const generateId = () => {
-    const maxId =
-      products.length > 0 ? Math.max(...products.map(product => product.id)) : 0
-    return String(maxId + 1)
-  }
-
   const handleCreate = () => {
-    const product = {
-      id: generateId(),
+    /* const product = {
+      id: String((Math.random() * 1000).toFixed(0)),
       ...newProduct,
-    }
-
+    } */
     productService
       .create(product)
       .then(response => {

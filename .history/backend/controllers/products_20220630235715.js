@@ -23,7 +23,7 @@ let products = [
 ]
 
 const generateId = () => {
-  const maxId =
+  maxId =
     products.length > 0 ? Math.max(...products.map(product => product.id)) : 0
   return String(maxId + 1)
 }
