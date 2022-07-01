@@ -148,8 +148,9 @@ const ProductForm = () => {
 
     productService
       .create(product)
-      .then(createdProduct => {
-        setProducts([...products, createdProduct])
+      .then(response => {
+        console.log(response)
+        setProducts([...products, product])
         return
       })
       .then(handleCleanUp())

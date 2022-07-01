@@ -134,11 +134,11 @@ const ProductForm = () => {
     })
   }
 
-  /* const generateId = () => {
+  const generateId = () => {
     const maxId =
       products.length > 0 ? Math.max(...products.map(product => product.id)) : 0
     return String(maxId + 1)
-  } */
+  }
 
   const handleCreate = () => {
     const product = {
@@ -148,8 +148,8 @@ const ProductForm = () => {
 
     productService
       .create(product)
-      .then(createdProduct => {
-        setProducts([...products, createdProduct])
+      .then(response => {
+        setProducts([...products, product])
         return
       })
       .then(handleCleanUp())

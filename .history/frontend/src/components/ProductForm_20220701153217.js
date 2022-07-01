@@ -149,6 +149,7 @@ const ProductForm = () => {
     productService
       .create(product)
       .then(createdProduct => {
+        console.log(createdProduct)
         setProducts([...products, createdProduct])
         return
       })
