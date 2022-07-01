@@ -19,11 +19,10 @@ mongoose
 app.use(cors())
 app.use(express.json())
 
-app.use('/api/products', productsRouter)
-app.use('/products/:id', express.static('build'))
-app.use('/products/new', express.static('build'))
-app.use('/products', express.static('build'))
-app.use('/not-found', express.static('build'))
 app.use('/', express.static('build'))
+app.use('/products', express.static('build'))
+app.use('/products/new', express.static('build'))
+app.use('/products/:id', express.static('build'))
+app.use('/api/products', productsRouter)
 
 module.exports = app
