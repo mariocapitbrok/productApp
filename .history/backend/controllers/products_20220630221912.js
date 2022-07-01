@@ -82,10 +82,4 @@ productsRouter.put('/:id', (request, response) => {
   }
 })
 
-productsRouter.delete('/:id', (request, response) => {
-  const id = request.params.id
-  products = products.filter(product => product.id !== id)
-  response.status(204).end()
-})
-
 module.exports = productsRouter

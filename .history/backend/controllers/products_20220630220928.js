@@ -32,21 +32,6 @@ productsRouter.get('/', (request, response) => {
   response.json(products)
 })
 
-productsRouter.post('/', (request, response) => {
-  const body = request.body
-
-  const product = {
-    id: generateId(),
-    name: body.name,
-    description: body.description,
-    price: body.price,
-  }
-
-  products = products.concat(product)
-
-  response.json(products)
-})
-
 productsRouter.get('/:id', (request, response) => {
   const id = request.params.id
   const product = products.find(product => product.id === id)
@@ -80,12 +65,6 @@ productsRouter.put('/:id', (request, response) => {
   } else {
     response.status(404).end()
   }
-})
-
-productsRouter.delete('/:id', (request, response) => {
-  const id = request.params.id
-  products = products.filter(product => product.id !== id)
-  response.status(204).end()
 })
 
 module.exports = productsRouter

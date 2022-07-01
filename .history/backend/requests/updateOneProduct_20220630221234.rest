@@ -1,0 +1,10 @@
+PUT http://localhost:3001/api/products/3
+Content-Type: application/json
+
+  {
+    "name": "Xbox Series S",
+    "description":
+      "includes: Xbox Series S console, one Xbox Wireless Controller, a high-speed HDMI cable, power cable, and 2 AA batteries.",
+    "price": 279.99,
+  }
+

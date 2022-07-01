@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/products
+Content-Type: application/json
+
+  {
+    "name": "PlayStation DualSense Wireless Controller",
+    "description":
+      "Midnight Black. Bring gaming worlds to life - Feel your in-game actions and environment simulated through haptic feedback*.",
+    "price": 69.99
+  }
