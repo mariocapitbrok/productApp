@@ -6,7 +6,7 @@ import productService from '../services/products'
 const ProductForm = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState(1)
   const [newProduct, setNewProduct] = useState({})
   const [errors, setErrors] = useState({})
 
@@ -75,10 +75,9 @@ const ProductForm = () => {
 
     if (!name && params.id !== 'bulkedit')
       customErrors.name = '"name" field is missing'
-    if (!description && params.id !== 'bulkedit')
+    if (!description)
       customErrors.description = '"description" field is missing'
-    if (!price && params.id !== 'bulkedit')
-      customErrors.price = '"price" field is missing'
+    if (!price) customErrors.price = '"price" field is missing'
 
     return customErrors
   }
@@ -86,13 +85,11 @@ const ProductForm = () => {
   useEffect(() => {
     //handleCleanUp()
 
-    if (params.id === 'bulkedit') return
-
     setNewProduct({
       price: price ? price : 1,
     })
 
-    if (params.id === 'new') return
+    if (params.id === 'new' || params.id === 'bulkedit') return
 
     productService
       .getOne(params.id)
@@ -181,15 +178,9 @@ const ProductForm = () => {
       return ids
     }, [])
 
-    let updatedProducts = products
-
-    selectedIds.forEach(id => {
-      updatedProducts = updatedProducts.map(product =>
-        product.id === id ? { ...product, ...newProduct } : product
-      )
-    })
-
-    setProducts(updatedProducts)
+    console.log('Bulk edit')
+    console.log('values:', description, price)
+    console.log('errors:', errors)
 
     let resolvePromise = Promise.resolve()
 

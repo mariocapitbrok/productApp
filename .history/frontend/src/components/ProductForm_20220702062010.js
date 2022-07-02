@@ -6,7 +6,7 @@ import productService from '../services/products'
 const ProductForm = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState(1)
   const [newProduct, setNewProduct] = useState({})
   const [errors, setErrors] = useState({})
 
@@ -86,13 +86,11 @@ const ProductForm = () => {
   useEffect(() => {
     //handleCleanUp()
 
-    if (params.id === 'bulkedit') return
-
     setNewProduct({
       price: price ? price : 1,
     })
 
-    if (params.id === 'new') return
+    if (params.id === 'new' || params.id === 'bulkedit') return
 
     productService
       .getOne(params.id)
@@ -185,7 +183,7 @@ const ProductForm = () => {
 
     selectedIds.forEach(id => {
       updatedProducts = updatedProducts.map(product =>
-        product.id === id ? { ...product, ...newProduct } : product
+        product.id === id ? newProduct : product
       )
     })
 

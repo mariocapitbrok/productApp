@@ -6,7 +6,7 @@ import productService from '../services/products'
 const ProductForm = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState(1)
   const [newProduct, setNewProduct] = useState({})
   const [errors, setErrors] = useState({})
 
@@ -75,10 +75,9 @@ const ProductForm = () => {
 
     if (!name && params.id !== 'bulkedit')
       customErrors.name = '"name" field is missing'
-    if (!description && params.id !== 'bulkedit')
+    if (!description)
       customErrors.description = '"description" field is missing'
-    if (!price && params.id !== 'bulkedit')
-      customErrors.price = '"price" field is missing'
+    if (!price) customErrors.price = '"price" field is missing'
 
     return customErrors
   }
@@ -86,13 +85,11 @@ const ProductForm = () => {
   useEffect(() => {
     //handleCleanUp()
 
-    if (params.id === 'bulkedit') return
-
     setNewProduct({
       price: price ? price : 1,
     })
 
-    if (params.id === 'new') return
+    if (params.id === 'new' || params.id === 'bulkedit') return
 
     productService
       .getOne(params.id)
@@ -176,28 +173,24 @@ const ProductForm = () => {
   }
 
   const handleBulkEdit = () => {
-    const selectedIds = checkedState.reduce((ids, state, index) => {
+    /* const selectedIds = checkedState.reduce((ids, state, index) => {
       if (state === true) ids = [...ids, products[index].id]
       return ids
-    }, [])
+    }, []) */
 
-    let updatedProducts = products
+    console.log('Bulk edit')
+    console.log('values:', description, price)
+    console.log('errors:', errors)
 
-    selectedIds.forEach(id => {
-      updatedProducts = updatedProducts.map(product =>
-        product.id === id ? { ...product, ...newProduct } : product
-      )
-    })
+    /* let resolvePromise = Promise.resolve()
 
-    setProducts(updatedProducts)
-
-    let resolvePromise = Promise.resolve()
-
-    selectedIds.forEach(id => {
-      resolvePromise = resolvePromise.then(response =>
-        productService.update(id, newProduct)
-      )
-    })
+    selectedIds
+      .forEach(id => {
+        resolvePromise = resolvePromise.then(response =>
+          productService.update(id, newProduct)
+        )
+      })
+      .then(console.log('refresh page ')) */
   }
 
   const handleCleanUp = () => {
@@ -211,19 +204,15 @@ const ProductForm = () => {
   const handleSubmit = event => {
     event.preventDefault()
 
-    const submitErrors = { ...validate(), ...validateRequired() }
-    setErrors(submitErrors)
-    console.log('submitErrors', submitErrors)
-    console.log('errors', errors)
-    if (Object.values(submitErrors ? submitErrors : {}).length > 0) {
-      console.log('there are errors before submit')
+    const requiredErrors = validateRequired()
+    setErrors({ ...errors, ...requiredErrors })
+    if (Object.values(errors ? errors : {}).length > 0) {
+      console.log(errors)
       return
     }
 
     if (params.id === 'new') {
-      console.log('before create')
       handleCreate()
-      console.log('created')
     } else if (params.id === 'bulkedit') {
       handleBulkEdit()
     } else {

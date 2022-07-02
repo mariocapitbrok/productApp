@@ -86,13 +86,11 @@ const ProductForm = () => {
   useEffect(() => {
     //handleCleanUp()
 
-    if (params.id === 'bulkedit') return
-
     setNewProduct({
       price: price ? price : 1,
     })
 
-    if (params.id === 'new') return
+    if (params.id === 'new' || params.id === 'bulkedit') return
 
     productService
       .getOne(params.id)
@@ -183,10 +181,12 @@ const ProductForm = () => {
 
     let updatedProducts = products
 
+    console.log(newProduct)
     selectedIds.forEach(id => {
-      updatedProducts = updatedProducts.map(product =>
-        product.id === id ? { ...product, ...newProduct } : product
-      )
+      updatedProducts = updatedProducts.map(product => {
+        console.log({ ...product, ...newProduct })
+        return product.id === id ? { ...product, ...newProduct } : product
+      })
     })
 
     setProducts(updatedProducts)

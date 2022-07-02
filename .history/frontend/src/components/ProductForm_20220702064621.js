@@ -183,10 +183,12 @@ const ProductForm = () => {
 
     let updatedProducts = products
 
+    console.log(newProduct)
     selectedIds.forEach(id => {
-      updatedProducts = updatedProducts.map(product =>
-        product.id === id ? { ...product, ...newProduct } : product
-      )
+      updatedProducts = updatedProducts.map(product => {
+        console.log({ ...product, ...newProduct })
+        return product.id === id ? { ...product, ...newProduct } : product
+      })
     })
 
     setProducts(updatedProducts)
