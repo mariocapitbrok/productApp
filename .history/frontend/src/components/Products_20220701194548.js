@@ -6,6 +6,7 @@ import ProductsHeader from './ProductsHeader'
 import ProductsBody from './ProductsBody'
 import ProductsFooter from './ProductsFooter'
 import ProductForm from './ProductForm'
+import Child from './Child'
 
 const Products = () => {
   const [products, setProducts] = useState([])
@@ -29,10 +30,6 @@ const Products = () => {
         exact
         element={<ProductForm products={products} setProducts={setProducts} />}
       />
-      <Route
-        path="/:id"
-        element={<ProductForm products={products} setProducts={setProducts} />}
-      ></Route>
       <Route
         path="/"
         element={

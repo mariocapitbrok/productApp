@@ -10,10 +10,12 @@ const Body = () => {
   return (
     <div className="body">
       <Routes>
-        <Route path="/parent" element={<Parent />}>
-          <Route path=":id" element=""></Route>
+        <Route path="/parent/*" element={<Parent />}>
+          <Route path=":id" element="" />
         </Route>
-        <Route path="/products/*" element={<Products />}></Route>
+        <Route path="/products" element={<Products />}>
+          <Route path=":id"></Route>
+        </Route>
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="*" exact={true} element={<Navigate to="/not-found" />} />

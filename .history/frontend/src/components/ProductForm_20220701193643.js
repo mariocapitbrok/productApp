@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useMatch } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Joi from 'joi-browser'
 import productService from '../services/products'
 
-const ProductForm = ({ products, setProducts }) => {
+const ProductForm = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState(1)
@@ -11,7 +11,7 @@ const ProductForm = ({ products, setProducts }) => {
   const [errors, setErrors] = useState({})
 
   const navigate = useNavigate()
-  const params = useMatch('/products/:id').params
+  const params = useParams()
 
   const productSchema = Joi.object({
     name: Joi.string().min(3).max(100).required(),
@@ -31,7 +31,7 @@ const ProductForm = ({ products, setProducts }) => {
       abortEarly: false,
     })
 
-    //console.log('productsArray', productsArray)
+    console.log('productsArray', productsArray)
     const arrayResult = Joi.validate(productsArray, allNamesSchema, {
       abortEarly: false,
     })
@@ -44,7 +44,7 @@ const ProductForm = ({ products, setProducts }) => {
       }
     }
 
-    //console.log('arrayResult', arrayResult)
+    console.log('arrayResult', arrayResult)
 
     if (arrayResult.error) {
       const path = arrayResult.error.details[0].context.path
@@ -52,8 +52,8 @@ const ProductForm = ({ products, setProducts }) => {
       const currentName = products
         .filter(product => product.id === params.id)
         .map(product => product.name)[0]
-      //console.log('currentName', currentName)
-      //console.log('message', message, 'path', path)
+      console.log('currentName', currentName)
+      console.log('message', message, 'path', path)
 
       if (path === 'name' && message.includes('duplicate')) {
         if (name !== currentName)
@@ -63,11 +63,11 @@ const ProductForm = ({ products, setProducts }) => {
       }
     }
 
-    //console.log('joiArrErrors', joiArrErrors)
-    //console.log('joiObjErrors', joiObjErrors)
+    console.log('joiArrErrors', joiArrErrors)
+    console.log('joiObjErrors', joiObjErrors)
 
     const joiErrors = { ...joiObjErrors, ...joiArrErrors }
-    //console.log('joiErrors', joiErrors)
+    console.log('joiErrors', joiErrors)
 
     return joiErrors
   }

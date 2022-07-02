@@ -30,10 +30,6 @@ const Products = () => {
         element={<ProductForm products={products} setProducts={setProducts} />}
       />
       <Route
-        path="/:id"
-        element={<ProductForm products={products} setProducts={setProducts} />}
-      ></Route>
-      <Route
         path="/"
         element={
           <div className="products">

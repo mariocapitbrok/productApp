@@ -25,12 +25,12 @@ const Products = () => {
   return (
     <Routes>
       <Route
-        path="/new"
+        path="new"
         exact
         element={<ProductForm products={products} setProducts={setProducts} />}
       />
       <Route
-        path="/:id"
+        path=":id"
         element={<ProductForm products={products} setProducts={setProducts} />}
       ></Route>
       <Route

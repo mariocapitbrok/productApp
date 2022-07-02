@@ -11,7 +11,7 @@ const Body = () => {
     <div className="body">
       <Routes>
         <Route path="/parent" element={<Parent />}>
-          <Route path=":id" element=""></Route>
+          <Route path=":id" element={<ProductForm />}></Route>
         </Route>
         <Route path="/products/*" element={<Products />}></Route>
         <Route path="/not-found" element={<NotFound />} />

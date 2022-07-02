@@ -5,7 +5,6 @@ import productService from '../services/products'
 import ProductsHeader from './ProductsHeader'
 import ProductsBody from './ProductsBody'
 import ProductsFooter from './ProductsFooter'
-import ProductForm from './ProductForm'
 
 const Products = () => {
   const [products, setProducts] = useState([])
@@ -25,31 +24,12 @@ const Products = () => {
   return (
     <Routes>
       <Route
-        path="/new"
-        exact
-        element={<ProductForm products={products} setProducts={setProducts} />}
-      />
-      <Route
-        path="/:id"
-        element={<ProductForm products={products} setProducts={setProducts} />}
-      ></Route>
-      <Route
         path="/"
-        element={
-          <div className="products">
-            <ProductsHeader
-              products={products}
-              setProducts={setProducts}
-              checkedState={checkedState}
-            />
-            <ProductsBody
-              checkedState={checkedState}
-              setCheckedState={setCheckedState}
-              products={products}
-            />
-            <ProductsFooter />
-          </div>
-        }
+        components={{
+          header: <h1>Header</h1>,
+          body: <h2>Body</h2>,
+          footer: <h1>Footer</h1>,
+        }}
       />
     </Routes>
   )

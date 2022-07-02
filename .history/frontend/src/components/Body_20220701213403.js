@@ -13,7 +13,9 @@ const Body = () => {
         <Route path="/parent" element={<Parent />}>
           <Route path=":id" element=""></Route>
         </Route>
-        <Route path="/products/*" element={<Products />}></Route>
+        <Route path="/products/*" element={<Products />}>
+          <Route path=":id" element={<ProductForm />}></Route>
+        </Route>
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="*" exact={true} element={<Navigate to="/not-found" />} />

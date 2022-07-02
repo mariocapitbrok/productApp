@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useMatch } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Joi from 'joi-browser'
 import productService from '../services/products'
 
@@ -11,7 +11,7 @@ const ProductForm = ({ products, setProducts }) => {
   const [errors, setErrors] = useState({})
 
   const navigate = useNavigate()
-  const params = useMatch('/products/:id').params
+  const params = useParams()
 
   const productSchema = Joi.object({
     name: Joi.string().min(3).max(100).required(),

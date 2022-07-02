@@ -5,15 +5,19 @@ import Home from './Home'
 import Products from './Products'
 import NotFound from './NotFound'
 import ProductForm from './ProductForm'
+import Child from './Child'
 
 const Body = () => {
   return (
     <div className="body">
       <Routes>
-        <Route path="/parent" element={<Parent />}>
-          <Route path=":id" element=""></Route>
+        <Route path="/parent/*" element={<Parent />}>
+          <Route path=":id" element="" />
+          <Route path="child" element={<Child />}></Route>
         </Route>
-        <Route path="/products/*" element={<Products />}></Route>
+        <Route path="/products" element={<Products />}>
+          <Route path=":id" element={<ProductForm />}></Route>
+        </Route>
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="*" exact={true} element={<Navigate to="/not-found" />} />

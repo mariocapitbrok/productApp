@@ -5,6 +5,7 @@ import Home from './Home'
 import Products from './Products'
 import NotFound from './NotFound'
 import ProductForm from './ProductForm'
+import Child from './Child'
 
 const Body = () => {
   return (
@@ -13,7 +14,7 @@ const Body = () => {
         <Route path="/parent" element={<Parent />}>
           <Route path=":id" element=""></Route>
         </Route>
-        <Route path="/products/*" element={<Products />}></Route>
+        <Route path="/products" element={<Products />}></Route>
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="*" exact={true} element={<Navigate to="/not-found" />} />

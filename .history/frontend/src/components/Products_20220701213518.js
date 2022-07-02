@@ -29,10 +29,7 @@ const Products = () => {
         exact
         element={<ProductForm products={products} setProducts={setProducts} />}
       />
-      <Route
-        path="/:id"
-        element={<ProductForm products={products} setProducts={setProducts} />}
-      ></Route>
+      <Route path="/:id" element={<ProductForm />}></Route>
       <Route
         path="/"
         element={
