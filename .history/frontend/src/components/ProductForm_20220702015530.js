@@ -10,16 +10,16 @@ const ProductForm = () => {
   const [newProduct, setNewProduct] = useState({})
   const [errors, setErrors] = useState({})
 
-  const { products, setProducts } = useOutletContext()
+  const [products, setProducts] = useOutletContext
   const navigate = useNavigate()
   const match = useMatch('/products/:id')
-  const params = match ? match.params : { id: 'new' }
+  const params = match ? match.params.id : 'new'
 
   const productSchema = Joi.object({
-    id: Joi.string(),
-    name: Joi.string().min(3).max(100),
+    name: Joi.string().min(3).max(100).required(),
     description: Joi.string().min(5).max(1000),
     price: Joi.number().min(1).max(20000).precision(2),
+    id: Joi.string(),
   }).required()
 
   const allNamesSchema = Joi.array().items(productSchema).unique('name')

@@ -3,14 +3,11 @@
   height: 30px;
 }
 
-/* Products */
-.products{
-  padding:30px 3%
-}
-
 /* Products header */
 .product-header {
   display: grid;
+  padding:30px 1%
+
 }
 .module-title {
   grid-column: 1 / 1;
@@ -25,7 +22,7 @@
 
 /* Products body */
 .products-body {
-  padding: 10px 0 0 0;
+  padding: 10px 1% 0 1%;
 }
 
 /* Product row */

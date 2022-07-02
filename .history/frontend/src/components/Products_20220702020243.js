@@ -27,7 +27,7 @@ const Products = () => {
   if (match) {
     return (
       <div>
-        <Outlet context={{ products, setProducts }} />
+        <Outlet context={[products, setProducts]} />
       </div>
     )
   }

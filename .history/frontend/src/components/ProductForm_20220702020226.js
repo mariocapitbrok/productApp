@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useMatch, useOutletContext } from 'react-router-dom'
 import Joi from 'joi-browser'
 import productService from '../services/products'
 
-const ProductForm = ({ products, setProducts }) => {
+const ProductForm = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState(1)
   const [newProduct, setNewProduct] = useState({})
   const [errors, setErrors] = useState({})
 
+  const [products, setProducts] = useOutletContext()
   const navigate = useNavigate()
-  const params = useParams()
+  const match = useMatch('/products/:id')
+  const params = 'new'
 
   const productSchema = Joi.object({
     name: Joi.string().min(3).max(100).required(),
@@ -31,6 +33,7 @@ const ProductForm = ({ products, setProducts }) => {
       abortEarly: false,
     })
 
+    //console.log('productsArray', productsArray)
     const arrayResult = Joi.validate(productsArray, allNamesSchema, {
       abortEarly: false,
     })
@@ -43,12 +46,16 @@ const ProductForm = ({ products, setProducts }) => {
       }
     }
 
+    //console.log('arrayResult', arrayResult)
+
     if (arrayResult.error) {
       const path = arrayResult.error.details[0].context.path
       const message = arrayResult.error.details[0].message
       const currentName = products
         .filter(product => product.id === params.id)
         .map(product => product.name)[0]
+      //console.log('currentName', currentName)
+      //console.log('message', message, 'path', path)
 
       if (path === 'name' && message.includes('duplicate')) {
         if (name !== currentName)
@@ -58,12 +65,16 @@ const ProductForm = ({ products, setProducts }) => {
       }
     }
 
+    //console.log('joiArrErrors', joiArrErrors)
+    //console.log('joiObjErrors', joiObjErrors)
+
     const joiErrors = { ...joiObjErrors, ...joiArrErrors }
+    //console.log('joiErrors', joiErrors)
 
     return joiErrors
   }
 
-  /*   useEffect(() => {
+  useEffect(() => {
     handleCleanUp()
 
     setNewProduct({
@@ -92,7 +103,7 @@ const ProductForm = ({ products, setProducts }) => {
     setErrors(validate())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, description, price])
- */
+
   const handleNameChange = event => {
     event.preventDefault()
     setName(event.target.value)

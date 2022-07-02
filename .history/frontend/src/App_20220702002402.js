@@ -4,11 +4,10 @@ import Parent from './Parent'
 import Home from './Home'
 import Products from './Products'
 import NotFound from './NotFound'
-import ProductForm from './ProductForm'
 
-const Body = () => {
+function App() {
   return (
-    <div className="body">
+    <div>
       <Routes>
         <Route path="/parent" element={<Parent />}>
           <Route path=":id" element=""></Route>
@@ -22,4 +21,4 @@ const Body = () => {
   )
 }
 
-export default Body
+export default App

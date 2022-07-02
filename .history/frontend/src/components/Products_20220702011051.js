@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Outlet, useMatch } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import productService from '../services/products'
 
 import ProductsHeader from './ProductsHeader'
 import ProductsBody from './ProductsBody'
 import ProductsFooter from './ProductsFooter'
 import ProductForm from './ProductForm'
+import Outlet from './../../../.history/frontend/src/components/Display_20220702004801'
 
 const Products = () => {
   const [products, setProducts] = useState([])
@@ -22,18 +23,9 @@ const Products = () => {
     setCheckedState(newCheckedState)
   }, [products])
 
-  const match = useMatch('products/:id')
-
-  if (match) {
-    return (
-      <div>
-        <Outlet context={{ products, setProducts }} />
-      </div>
-    )
-  }
-
   return (
     <div className="products">
+      <Outlet />
       <ProductsHeader
         products={products}
         setProducts={setProducts}

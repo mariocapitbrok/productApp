@@ -5,10 +5,10 @@
 
 /* Products */
 .products{
-  padding:30px 3%
+  padding:30px 1%
 }
 
-/* Products header */
+/*/* Products header */
 .product-header {
   display: grid;
 }
@@ -23,17 +23,17 @@
   grid-column: 1 / 4;
 }
 
-/* Products body */
+/*/* Products body */
 .products-body {
   padding: 10px 0 0 0;
 }
 
-/* Product row */
+/*/*/* Product row */
 .currency:before {
   content: '$'
 }
 
-/* Product form */
+/*/*/* Product form */
 .product-form {
   margin: 10px 5% 40px 5%
 }

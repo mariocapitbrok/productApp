@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useMatch, useOutletContext } from 'react-router-dom'
+import { useNavigate, useMatch } from 'react-router-dom'
 import Joi from 'joi-browser'
 import productService from '../services/products'
 
-const ProductForm = () => {
+const ProductForm = ({ products, setProducts }) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState(1)
   const [newProduct, setNewProduct] = useState({})
   const [errors, setErrors] = useState({})
 
-  const { products, setProducts } = useOutletContext()
   const navigate = useNavigate()
   const match = useMatch('/products/:id')
-  const params = match ? match.params : { id: 'new' }
+  const params = match ? match.params.id : 'new'
 
   const productSchema = Joi.object({
-    id: Joi.string(),
-    name: Joi.string().min(3).max(100),
+    name: Joi.string().min(3).max(100).required(),
     description: Joi.string().min(5).max(1000),
     price: Joi.number().min(1).max(20000).precision(2),
+    id: Joi.string(),
   }).required()
 
   const allNamesSchema = Joi.array().items(productSchema).unique('name')

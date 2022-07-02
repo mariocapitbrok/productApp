@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 
+import Home from './components/Home'
 import Products from './components/Products'
 import ProductForm from './components/ProductForm'
 import NotFound from './components/NotFound'

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Outlet, useMatch } from 'react-router-dom'
 import productService from '../services/products'
 
 import ProductsHeader from './ProductsHeader'
@@ -21,16 +20,6 @@ const Products = () => {
     const newCheckedState = new Array(products.length).fill(false)
     setCheckedState(newCheckedState)
   }, [products])
-
-  const match = useMatch('products/:id')
-
-  if (match) {
-    return (
-      <div>
-        <Outlet context={{ products, setProducts }} />
-      </div>
-    )
-  }
 
   return (
     <div className="products">

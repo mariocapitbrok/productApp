@@ -3,11 +3,6 @@
   height: 30px;
 }
 
-/* Products */
-.products{
-  padding:30px 3%
-}
-
 /* Products header */
 .product-header {
   display: grid;

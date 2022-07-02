@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Outlet, useMatch } from 'react-router-dom'
 import productService from '../services/products'
 
 import ProductsHeader from './ProductsHeader'
@@ -22,32 +22,31 @@ const Products = () => {
     setCheckedState(newCheckedState)
   }, [products])
 
+  const match = useMatch('products/:id')
+
+  if (match) {
+    return (
+      <div>
+        <h1>Params id: {match.params.id}</h1>
+        <Outlet />
+      </div>
+    )
+  }
+
   return (
-    <Routes>
-      <Route
-        path="/new"
-        exact
-        element={<ProductForm products={products} setProducts={setProducts} />}
+    <div className="products">
+      <ProductsHeader
+        products={products}
+        setProducts={setProducts}
+        checkedState={checkedState}
       />
-      <Route
-        path="/"
-        element={
-          <div className="products">
-            <ProductsHeader
-              products={products}
-              setProducts={setProducts}
-              checkedState={checkedState}
-            />
-            <ProductsBody
-              checkedState={checkedState}
-              setCheckedState={setCheckedState}
-              products={products}
-            />
-            <ProductsFooter />
-          </div>
-        }
+      <ProductsBody
+        checkedState={checkedState}
+        setCheckedState={setCheckedState}
+        products={products}
       />
-    </Routes>
+      <ProductsFooter />
+    </div>
   )
 }
 

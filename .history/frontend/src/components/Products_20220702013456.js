@@ -24,14 +24,7 @@ const Products = () => {
 
   const match = useMatch('products/:id')
 
-  if (match) {
-    return (
-      <div>
-        <Outlet context={{ products, setProducts }} />
-      </div>
-    )
-  }
-
+  console.log(Boolean(Outlet), Boolean(match.params.id), match.params.id)
   return (
     <div className="products">
       <ProductsHeader
