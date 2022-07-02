@@ -265,7 +265,7 @@ const ProductForm = () => {
           </label>
           <input
             type="number"
-            step=".01"
+            step="any"
             className="form-control"
             id="price"
             onChange={handlePriceChange}
