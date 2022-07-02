@@ -9,7 +9,7 @@ function App() {
     <div>
       <Routes>
         <Route path="products" element={<Products />}>
-          <Route exact path="bulkedit" element={<ProductForm />} />
+          <Route exact path="edit" element={<ProductForm />} />
           <Route exact path="new" element={<ProductForm />} />
           <Route path=":id" element={<ProductForm />} />
         </Route>

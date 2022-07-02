@@ -11,7 +11,6 @@ const ProductForm = () => {
   const [errors, setErrors] = useState({})
 
   const { products, setProducts } = useOutletContext()
-  const { checkedState, setCheckedState } = useOutletContext()
   const navigate = useNavigate()
   const match = useMatch('/products/:id')
   const params = match ? match.params : { id: 'new' }
@@ -28,12 +27,14 @@ const ProductForm = () => {
   const validate = () => {
     let joiObjErrors = {}
     let joiArrErrors = {}
+    let customErrors = {}
     let productsArray = [newProduct, ...products]
 
     const objectResult = Joi.validate(newProduct, productSchema, {
       abortEarly: false,
     })
 
+    //console.log('productsArray', productsArray)
     const arrayResult = Joi.validate(productsArray, allNamesSchema, {
       abortEarly: false,
     })
@@ -46,12 +47,16 @@ const ProductForm = () => {
       }
     }
 
+    //console.log('arrayResult', arrayResult)
+
     if (arrayResult.error) {
       const path = arrayResult.error.details[0].context.path
       const message = arrayResult.error.details[0].message
       const currentName = products
         .filter(product => product.id === params.id)
         .map(product => product.name)[0]
+      //console.log('currentName', currentName)
+      //console.log('message', message, 'path', path)
 
       if (path === 'name' && message.includes('duplicate')) {
         if (name !== currentName)
@@ -61,7 +66,11 @@ const ProductForm = () => {
       }
     }
 
+    //console.log('joiArrErrors', joiArrErrors)
+    //console.log('joiObjErrors', joiObjErrors)
+
     const joiErrors = { ...joiObjErrors, ...joiArrErrors }
+    //console.log('joiErrors', joiErrors)
 
     return joiErrors
   }
@@ -69,8 +78,7 @@ const ProductForm = () => {
   const validateRequired = () => {
     const customErrors = {}
 
-    if (!name && params.id !== 'bulkedit')
-      customErrors.name = '"name" field is missing'
+    if (!name) customErrors.name = '"name" field is missing'
     if (!description)
       customErrors.description = '"description" field is missing'
     if (!price) customErrors.price = '"price" field is missing'
@@ -85,7 +93,7 @@ const ProductForm = () => {
       price: price ? price : 1,
     })
 
-    if (params.id === 'new' || params.id === 'bulkedit') return
+    if (params.id === 'new') return
 
     productService
       .getOne(params.id)
@@ -172,27 +180,6 @@ const ProductForm = () => {
       .then(handleCleanUp())
   }
 
-  const handleBulkEdit = () => {
-    /* const selectedIds = checkedState.reduce((ids, state, index) => {
-      if (state === true) ids = [...ids, products[index].id]
-      return ids
-    }, []) */
-
-    console.log('Bulk edit')
-    console.log('values:', description, price)
-    console.log('errors:', errors)
-
-    /* let resolvePromise = Promise.resolve()
-
-    selectedIds
-      .forEach(id => {
-        resolvePromise = resolvePromise.then(response =>
-          productService.update(id, newProduct)
-        )
-      })
-      .then(console.log('refresh page ')) */
-  }
-
   const handleCleanUp = () => {
     setName('')
     setDescription('')
@@ -205,15 +192,13 @@ const ProductForm = () => {
     event.preventDefault()
 
     const requiredErrors = validateRequired()
-    setErrors({ ...errors, ...requiredErrors })
-    if (Object.values(errors ? errors : {}).length > 0) {
+    if (Object.values(requiredErrors).length > 0) {
+      console.log('there are errors', Object.values(requiredErrors))
       return
     }
 
     if (params.id === 'new') {
       handleCreate()
-    } else if (params.id === 'bulkedit') {
-      handleBulkEdit()
     } else {
       handleUpdate()
     }
@@ -221,27 +206,25 @@ const ProductForm = () => {
     navigate('/products', { replace: true })
   }
 
+  //console.log(errors)
   return (
     <div className="product-form">
       <form onSubmit={handleSubmit}>
-        {params.id !== 'bulkedit' && (
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Product name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              onChange={handleNameChange}
-              value={name}
-            />
-            {errors && errors.name && (
-              <div className="alert alert-danger">{errors.name}</div>
-            )}
-          </div>
-        )}
-
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Product name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            onChange={handleNameChange}
+            value={name}
+          />
+          {errors && errors.name && (
+            <div className="alert alert-danger">{errors.name}</div>
+          )}
+        </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Description
@@ -263,6 +246,8 @@ const ProductForm = () => {
           </label>
           <input
             type="number"
+            //step="1"
+            //ng-pattern="/^[0-9]{1,8}$|^$/"
             className="form-control"
             id="price"
             onChange={handlePriceChange}

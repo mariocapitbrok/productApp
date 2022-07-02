@@ -11,7 +11,6 @@ const ProductForm = () => {
   const [errors, setErrors] = useState({})
 
   const { products, setProducts } = useOutletContext()
-  const { checkedState, setCheckedState } = useOutletContext()
   const navigate = useNavigate()
   const match = useMatch('/products/:id')
   const params = match ? match.params : { id: 'new' }
@@ -69,8 +68,7 @@ const ProductForm = () => {
   const validateRequired = () => {
     const customErrors = {}
 
-    if (!name && params.id !== 'bulkedit')
-      customErrors.name = '"name" field is missing'
+    if (!name) customErrors.name = '"name" field is missing'
     if (!description)
       customErrors.description = '"description" field is missing'
     if (!price) customErrors.price = '"price" field is missing'
@@ -85,7 +83,7 @@ const ProductForm = () => {
       price: price ? price : 1,
     })
 
-    if (params.id === 'new' || params.id === 'bulkedit') return
+    if (params.id === 'new') return
 
     productService
       .getOne(params.id)
@@ -171,26 +169,8 @@ const ProductForm = () => {
       .then(setProducts(updatedProducts))
       .then(handleCleanUp())
   }
-
   const handleBulkEdit = () => {
-    /* const selectedIds = checkedState.reduce((ids, state, index) => {
-      if (state === true) ids = [...ids, products[index].id]
-      return ids
-    }, []) */
-
     console.log('Bulk edit')
-    console.log('values:', description, price)
-    console.log('errors:', errors)
-
-    /* let resolvePromise = Promise.resolve()
-
-    selectedIds
-      .forEach(id => {
-        resolvePromise = resolvePromise.then(response =>
-          productService.update(id, newProduct)
-        )
-      })
-      .then(console.log('refresh page ')) */
   }
 
   const handleCleanUp = () => {
@@ -205,15 +185,14 @@ const ProductForm = () => {
     event.preventDefault()
 
     const requiredErrors = validateRequired()
-    setErrors({ ...errors, ...requiredErrors })
-    if (Object.values(errors ? errors : {}).length > 0) {
+    if (Object.values(requiredErrors).length > 0) {
+      setErrors(requiredErrors)
       return
     }
 
+    //if (params.id === 'bulkedit') handleBulkEdit()
     if (params.id === 'new') {
       handleCreate()
-    } else if (params.id === 'bulkedit') {
-      handleBulkEdit()
     } else {
       handleUpdate()
     }
@@ -224,24 +203,21 @@ const ProductForm = () => {
   return (
     <div className="product-form">
       <form onSubmit={handleSubmit}>
-        {params.id !== 'bulkedit' && (
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Product name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              onChange={handleNameChange}
-              value={name}
-            />
-            {errors && errors.name && (
-              <div className="alert alert-danger">{errors.name}</div>
-            )}
-          </div>
-        )}
-
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Product name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            onChange={handleNameChange}
+            value={name}
+          />
+          {errors && errors.name && (
+            <div className="alert alert-danger">{errors.name}</div>
+          )}
+        </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Description

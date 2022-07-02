@@ -205,7 +205,7 @@ const ProductForm = () => {
     event.preventDefault()
 
     const requiredErrors = validateRequired()
-    setErrors({ ...errors, ...requiredErrors })
+    setErrors({ ...errors, requiredErrors })
     if (Object.values(errors ? errors : {}).length > 0) {
       return
     }

@@ -11,7 +11,6 @@ const ProductForm = () => {
   const [errors, setErrors] = useState({})
 
   const { products, setProducts } = useOutletContext()
-  const { checkedState, setCheckedState } = useOutletContext()
   const navigate = useNavigate()
   const match = useMatch('/products/:id')
   const params = match ? match.params : { id: 'new' }
@@ -171,26 +170,10 @@ const ProductForm = () => {
       .then(setProducts(updatedProducts))
       .then(handleCleanUp())
   }
-
   const handleBulkEdit = () => {
-    /* const selectedIds = checkedState.reduce((ids, state, index) => {
-      if (state === true) ids = [...ids, products[index].id]
-      return ids
-    }, []) */
-
     console.log('Bulk edit')
-    console.log('values:', description, price)
-    console.log('errors:', errors)
-
-    /* let resolvePromise = Promise.resolve()
-
-    selectedIds
-      .forEach(id => {
-        resolvePromise = resolvePromise.then(response =>
-          productService.update(id, newProduct)
-        )
-      })
-      .then(console.log('refresh page ')) */
+    console.log(description, price)
+    console.log(errors)
   }
 
   const handleCleanUp = () => {
@@ -205,8 +188,8 @@ const ProductForm = () => {
     event.preventDefault()
 
     const requiredErrors = validateRequired()
-    setErrors({ ...errors, ...requiredErrors })
-    if (Object.values(errors ? errors : {}).length > 0) {
+    if (Object.values(requiredErrors).length > 0) {
+      setErrors(requiredErrors)
       return
     }
 

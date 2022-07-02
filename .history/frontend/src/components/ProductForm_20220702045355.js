@@ -173,10 +173,10 @@ const ProductForm = () => {
   }
 
   const handleBulkEdit = () => {
-    /* const selectedIds = checkedState.reduce((ids, state, index) => {
+    const selectedIds = checkedState.reduce((ids, state, index) => {
       if (state === true) ids = [...ids, products[index].id]
       return ids
-    }, []) */
+    }, [])
 
     console.log('Bulk edit')
     console.log('values:', description, price)
@@ -205,7 +205,7 @@ const ProductForm = () => {
     event.preventDefault()
 
     const requiredErrors = validateRequired()
-    setErrors({ ...errors, ...requiredErrors })
+    setErrors({ ...errors, requiredErrors })
     if (Object.values(errors ? errors : {}).length > 0) {
       return
     }

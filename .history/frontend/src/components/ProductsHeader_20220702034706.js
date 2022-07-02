@@ -37,7 +37,7 @@ const ProductsHeader = ({ products, setProducts, checkedState }) => {
         </Link>
       </div>
       <div className="module-menu-b">
-        <Link to="/products/bulkedit">
+        <Link to="/products/new">
           <button>
             <i className="fa-solid fa-pencil"></i>
           </button>

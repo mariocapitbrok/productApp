@@ -151,13 +151,11 @@ const ProductForm = () => {
       ...newProduct,
     }
 
-    productService
-      .create(product)
-      .then(createdProduct => {
-        setProducts([...products, createdProduct])
-        return
-      })
-      .then(handleCleanUp())
+    productService.create(product).then(createdProduct => {
+      setProducts([...products, createdProduct])
+      return
+    })
+    //.then(handleCleanUp())
   }
 
   const handleUpdate = () => {
@@ -166,10 +164,8 @@ const ProductForm = () => {
       product.id === id ? { id, ...newProduct } : product
     )
 
-    productService
-      .update(id, newProduct)
-      .then(setProducts(updatedProducts))
-      .then(handleCleanUp())
+    productService.update(id, newProduct).then(setProducts(updatedProducts))
+    //.then(handleCleanUp())
   }
 
   const handleBulkEdit = () => {

@@ -171,26 +171,10 @@ const ProductForm = () => {
       .then(setProducts(updatedProducts))
       .then(handleCleanUp())
   }
-
   const handleBulkEdit = () => {
-    /* const selectedIds = checkedState.reduce((ids, state, index) => {
-      if (state === true) ids = [...ids, products[index].id]
-      return ids
-    }, []) */
-
     console.log('Bulk edit')
     console.log('values:', description, price)
     console.log('errors:', errors)
-
-    /* let resolvePromise = Promise.resolve()
-
-    selectedIds
-      .forEach(id => {
-        resolvePromise = resolvePromise.then(response =>
-          productService.update(id, newProduct)
-        )
-      })
-      .then(console.log('refresh page ')) */
   }
 
   const handleCleanUp = () => {
@@ -205,7 +189,7 @@ const ProductForm = () => {
     event.preventDefault()
 
     const requiredErrors = validateRequired()
-    setErrors({ ...errors, ...requiredErrors })
+    setErrors({ ...errors, requiredErrors })
     if (Object.values(errors ? errors : {}).length > 0) {
       return
     }
